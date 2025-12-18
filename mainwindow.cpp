@@ -82,6 +82,16 @@ MainWindow::MainWindow(QWidget *parent)
         "QPushButton:hover { background-color: #0063B1; }"
         "QPushButton:pressed { background-color: #004C87; }"
     );
+    connect(sendButton, &QPushButton::clicked, this, [this, inputBox, conversationLayout, introLabel]() {
+        if (conversationLayout->indexOf(introLabel) != -1) {
+            introLabel->deleteLater();
+        }
+        if (!inputBox->text().isEmpty()) {
+            auto *label = new QLabel(inputBox->text());
+            conversationLayout->addWidget(label, 0);
+            inputBox->clear();
+        }
+    });
 
     inputLayout->addWidget(inputBox);
     inputLayout->addWidget(sendButton);

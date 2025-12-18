@@ -23,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     QWidget *centralWidget = new QWidget(this);
     QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
     mainLayout->setContentsMargins(0, 0, 0, 0);
+    this->statusBar()->hide();
 
     // Frame
     QFrame *backgroundFrame = new QFrame(centralWidget);

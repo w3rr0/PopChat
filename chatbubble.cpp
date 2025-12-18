@@ -12,6 +12,7 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSizeConstraint(QLayout::SetMinAndMaxSize);
 
+    // Frame
     auto *frame = new QFrame(this);
     QString bg = isSender ? "#0078D7" : "#3A3A3A";
     QString color = isSender ? "white" : "#E0E0E0";
@@ -19,6 +20,7 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
         "QFrame { background-color: %1; border-radius: 12px; }"
     ).arg(bg));
 
+    // Inner
     auto *innerLayout = new QVBoxLayout(frame);
     innerLayout->setContentsMargins(15, 10, 15, 10);
     innerLayout->setSizeConstraint(QLayout::SetFixedSize);
@@ -33,7 +35,6 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
     m_label->setFont(font);
     m_label->setStyleSheet(QString("QLabel { color: %1; background-color: transparent; border: none; }").arg(color));
 
-    // Size Policy
     QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
     m_label->setSizePolicy(sizePolicy);
 
@@ -50,7 +51,7 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
 
 void ChatBubble::resizeEvent(QResizeEvent *event) {
     if (m_label && m_isSender) {
-        m_label->setMaximumWidth(this->width() * 0.8);
+        m_label->setMaximumWidth(this->width() * 0.75);
     }
     QWidget::resizeEvent(event);
 }

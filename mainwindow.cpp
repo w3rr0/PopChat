@@ -45,10 +45,12 @@ MainWindow::MainWindow(QWidget *parent)
     contentLayout->setContentsMargins(20, 20, 20, 20);
     contentLayout->setSpacing(10);
 
-    QLabel *label = new QLabel("Wciśnij Ctrl+Shift+K", backgroundFrame);
-    label->setStyleSheet("color: #AAAAAA; font-size: 14px; border: none; background: transparent;");
-    label->setAlignment(Qt::AlignCenter);
-    contentLayout->addWidget(label, 1); // Takes up all available vertical space
+    auto *conversationLayout = new QVBoxLayout();
+    auto *introLabel = new QLabel("Wciśnij Ctrl+Shift+K", backgroundFrame);
+    introLabel->setStyleSheet("color: #AAAAAA; font-size: 14px; border: none; background: transparent;");
+    introLabel->setAlignment(Qt::AlignCenter);
+    conversationLayout->addWidget(introLabel);
+    contentLayout->addLayout(conversationLayout, 1);
 
     QHBoxLayout *inputLayout = new QHBoxLayout();
     inputLayout->setSpacing(10);

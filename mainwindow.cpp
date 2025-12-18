@@ -23,13 +23,13 @@ MainWindow::MainWindow(QWidget *parent)
     setAttribute(Qt::WA_TranslucentBackground);
 
     // Window
-    QWidget *centralWidget = new QWidget(this);
-    QVBoxLayout *mainLayout = new QVBoxLayout(centralWidget);
+    auto *centralWidget = new QWidget(this);
+    auto *mainLayout = new QVBoxLayout(centralWidget);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     this->statusBar()->hide();
 
     // Frame
-    QFrame *backgroundFrame = new QFrame(centralWidget);
+    auto *backgroundFrame = new QFrame(centralWidget);
     backgroundFrame->setStyleSheet(
         "QFrame {"
         "   background-color: #2D2D2D;"
@@ -41,7 +41,7 @@ MainWindow::MainWindow(QWidget *parent)
     setCentralWidget(centralWidget);
 
     // Layout
-    QVBoxLayout *contentLayout = new QVBoxLayout(backgroundFrame);
+    auto *contentLayout = new QVBoxLayout(backgroundFrame);
     contentLayout->setContentsMargins(20, 20, 20, 20);
     contentLayout->setSpacing(10);
 
@@ -52,10 +52,10 @@ MainWindow::MainWindow(QWidget *parent)
     conversationLayout->addWidget(introLabel);
     contentLayout->addLayout(conversationLayout, 1);
 
-    QHBoxLayout *inputLayout = new QHBoxLayout();
+    auto *inputLayout = new QHBoxLayout();
     inputLayout->setSpacing(10);
 
-    QLineEdit *inputBox = new QLineEdit(backgroundFrame);
+    auto *inputBox = new QLineEdit(backgroundFrame);
     inputBox->setPlaceholderText("Ask...");
     inputBox->setStyleSheet(
         "QLineEdit {"
@@ -69,7 +69,7 @@ MainWindow::MainWindow(QWidget *parent)
         "QLineEdit:focus { border: 1px solid #0078D7; }"
     );
 
-    QPushButton *sendButton = new QPushButton("Send", backgroundFrame);
+    auto *sendButton = new QPushButton("Send", backgroundFrame);
     sendButton->setCursor(Qt::PointingHandCursor);
     sendButton->setStyleSheet(
         "QPushButton {"

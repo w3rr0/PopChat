@@ -89,6 +89,7 @@ MainWindow::MainWindow(QWidget *parent)
         if (!inputBox->text().isEmpty()) {
             auto *label = new QLabel(inputBox->text());
             conversationLayout->addWidget(label, 0);
+            conversationLayout->addStretch();
             inputBox->clear();
         }
     });

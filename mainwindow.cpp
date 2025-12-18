@@ -8,6 +8,8 @@
 #include <QLineEdit>
 #include <QPushButton>
 
+#include "chatbubble.h"
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -83,15 +85,20 @@ MainWindow::MainWindow(QWidget *parent)
         "QPushButton:pressed { background-color: #004C87; }"
     );
     connect(sendButton, &QPushButton::clicked, this, [this, inputBox, conversationLayout, introLabel]() {
+        QString text = inputBox->text().trimmed();
+        if (text.isEmpty()) return;
         if (conversationLayout->indexOf(introLabel) != -1) {
             introLabel->deleteLater();
         }
-        if (!inputBox->text().isEmpty()) {
-            auto *label = new QLabel(inputBox->text());
-            conversationLayout->addWidget(label, 0);
-            conversationLayout->addStretch();
-            inputBox->clear();
-        }
+
+        auto *msg = new ChatBubble(text, true, nullptr);
+        conversationLayout->addWidget(msg);
+
+        auto *answer = new ChatBubble("Answer for you", false, nullptr);
+        conversationLayout->addWidget(answer);
+
+        inputBox->clear();
+        // Scroll down for later
     });
 
     inputLayout->addWidget(inputBox);

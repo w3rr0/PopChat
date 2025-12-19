@@ -138,7 +138,7 @@ MainWindow::MainWindow(QWidget *parent)
             this->resize(this->width(), maxHeight);
         }
 
-        QTimer::singleShot(10, [scrollArea](){
+        QTimer::singleShot(10, this, [scrollArea](){
             scrollArea->verticalScrollBar()->setValue(scrollArea->verticalScrollBar()->maximum());
         });
 

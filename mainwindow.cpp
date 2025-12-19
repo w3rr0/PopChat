@@ -84,6 +84,7 @@ MainWindow::MainWindow(QWidget *parent)
         "QPushButton:hover { background-color: #0063B1; }"
         "QPushButton:pressed { background-color: #004C87; }"
     );
+    connect(inputBox, &QLineEdit::returnPressed, sendButton, &QPushButton::animateClick);
     connect(sendButton, &QPushButton::clicked, this, [this, inputBox, conversationLayout, introLabel]() {
         QString text = inputBox->text().trimmed();
         if (text.isEmpty()) return;

@@ -12,7 +12,6 @@ int main(int argc, char *argv[])
     // Creating main window
     MainWindow w;
     w.setWindowTitle("PopChat");
-    w.resize(400, 200);
 
     w.show();   // Ultimately hidden at the start
     return a.exec();

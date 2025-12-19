@@ -7,6 +7,8 @@
 #include <QFrame>
 #include <QLineEdit>
 #include <QPushButton>
+#include <QScrollArea>
+#include <QScrollBar>
 
 #include "chatbubble.h"
 
@@ -29,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     auto *mainLayout = new QVBoxLayout(centralWidget);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     this->statusBar()->hide();
+    this->resize(400, 150);
 
     // Frame
     auto *backgroundFrame = new QFrame(centralWidget);

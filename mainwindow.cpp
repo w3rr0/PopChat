@@ -9,6 +9,7 @@
 #include <QPushButton>
 #include <QScrollArea>
 #include <QScrollBar>
+#include <QTimer>
 
 #include "chatbubble.h"
 
@@ -31,7 +32,7 @@ MainWindow::MainWindow(QWidget *parent)
     auto *mainLayout = new QVBoxLayout(centralWidget);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     this->statusBar()->hide();
-    this->resize(400, 150);
+    this->resize(450, 100);
 
     // Frame
     auto *backgroundFrame = new QFrame(centralWidget);
@@ -50,12 +51,34 @@ MainWindow::MainWindow(QWidget *parent)
     contentLayout->setContentsMargins(20, 20, 20, 20);
     contentLayout->setSpacing(10);
 
-    auto *conversationLayout = new QVBoxLayout();
-    auto *introLabel = new QLabel("Wciśnij Ctrl+Shift+K", backgroundFrame);
+    // Scroll Area
+    auto *scrollArea = new QScrollArea(backgroundFrame);
+    scrollArea->setWidgetResizable(true);
+    scrollArea->setFrameShape(QFrame::NoFrame);
+    scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    scrollArea->setStyleSheet(
+        "QScrollArea { background: transparent; border: none; }"
+        "QScrollBar:vertical { border: none; background: #2D2D2D; width: 8px; margin: 0px; }"
+        "QScrollBar::handle:vertical { background: #555; min-height: 20px; border-radius: 4px; }"
+        "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }"
+        "QWidget { background: transparent; }"
+    );
+
+    auto *scrollContent = new QWidget();
+
+    auto *conversationLayout = new QVBoxLayout(scrollContent);
+    conversationLayout->setContentsMargins(0, 0, 0, 0);
+    conversationLayout->setSpacing(10);
+    conversationLayout->setAlignment(Qt::AlignTop);
+
+    scrollArea->setWidget(scrollContent);
+    contentLayout->addWidget(scrollArea, 1);
+
+    auto *introLabel = new QLabel("Press Ctrl+Shift+K", backgroundFrame);
     introLabel->setStyleSheet("color: #AAAAAA; font-size: 14px; border: none; background: transparent;");
     introLabel->setAlignment(Qt::AlignCenter);
     conversationLayout->addWidget(introLabel);
-    contentLayout->addLayout(conversationLayout, 1);
 
     auto *inputLayout = new QHBoxLayout();
     inputLayout->setSpacing(10);
@@ -88,7 +111,7 @@ MainWindow::MainWindow(QWidget *parent)
         "QPushButton:pressed { background-color: #004C87; }"
     );
     connect(inputBox, &QLineEdit::returnPressed, sendButton, &QPushButton::animateClick);
-    connect(sendButton, &QPushButton::clicked, this, [this, inputBox, conversationLayout, introLabel]() {
+    connect(sendButton, &QPushButton::clicked, this, [this, inputBox, conversationLayout, introLabel, scrollArea, scrollContent]() {
         QString text = inputBox->text().trimmed();
         if (text.isEmpty()) return;
         if (conversationLayout->indexOf(introLabel) != -1) {
@@ -102,12 +125,27 @@ MainWindow::MainWindow(QWidget *parent)
         conversationLayout->addWidget(answer);
 
         inputBox->clear();
-        // Scroll down for later
+
+        scrollContent->adjustSize();
+        qApp->processEvents();
+
+        int requiredHeight = scrollContent->sizeHint().height() + 100;
+        int maxHeight = 550;
+
+        if (requiredHeight < maxHeight) {
+            this->resize(this->width(), requiredHeight);
+        } else {
+            this->resize(this->width(), maxHeight);
+        }
+
+        QTimer::singleShot(10, [scrollArea](){
+            scrollArea->verticalScrollBar()->setValue(scrollArea->verticalScrollBar()->maximum());
+        });
+
     });
 
     inputLayout->addWidget(inputBox);
     inputLayout->addWidget(sendButton);
-
     contentLayout->addLayout(inputLayout, 0);   // Takes as little space as needed
 
     // Hotkey

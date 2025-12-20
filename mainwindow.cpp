@@ -109,6 +109,9 @@ MainWindow::MainWindow(QWidget *parent)
         "}"
         "QLineEdit:focus { border: 1px solid #0078D7; }"
     );
+#ifdef Q_OS_MAC
+    inputBox->setAttribute(Qt::WA_MacShowFocusRect, false);
+#endif
 
     auto *sendButton = new QPushButton("Send", backgroundFrame);
     sendButton->setCursor(Qt::PointingHandCursor);
@@ -161,6 +164,8 @@ MainWindow::MainWindow(QWidget *parent)
             inputBox->setFocus();
         }
     });
+
+    inputBox->setFocus();
 }
 
 MainWindow::~MainWindow()

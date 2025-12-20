@@ -58,7 +58,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Layout
     auto *contentLayout = new QVBoxLayout(backgroundFrame);
     contentLayout->setContentsMargins(15, 15, 15, 10);
-    contentLayout->setSpacing(5);
+    contentLayout->setSpacing(10);
 
     // Scroll Area
     auto *scrollArea = new QScrollArea(backgroundFrame);
@@ -128,6 +128,8 @@ MainWindow::MainWindow(QWidget *parent)
         QString text = inputBox->text().trimmed();
         if (text.isEmpty()) return;
         if (conversationLayout->indexOf(introLabel) != -1) {
+            introLabel->hide();
+            conversationLayout->removeWidget(introLabel);
             introLabel->deleteLater();
         }
 

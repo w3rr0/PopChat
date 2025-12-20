@@ -1,9 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
 
-#include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QLabel>
 #include <QFrame>
 #include <QLineEdit>
 #include <QPushButton>

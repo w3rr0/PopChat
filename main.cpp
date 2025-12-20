@@ -1,8 +1,6 @@
 #include "mainwindow.h"
 
 #include <QApplication>
-#include <QHotkey>
-#include <QVBoxLayout>
 #include <QLabel>
 
 int main(int argc, char *argv[])

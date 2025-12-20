@@ -53,7 +53,7 @@ void ChatBubble::resizeEvent(QResizeEvent *event) {
     if (m_label && m_isSender) {
         int limitWidth = this->width() * 0.75;
         QFontMetrics fm(m_label->font());
-        int textWidth = fm.horizontalAdvance(m_label->text());
+        int textWidth = fm.horizontalAdvance(m_label->text()) + 2;
         int finalWidth = std::min(textWidth, limitWidth);
         m_label->setFixedWidth(finalWidth);
     }

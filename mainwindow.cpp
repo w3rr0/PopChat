@@ -2,7 +2,6 @@
 #include "./ui_mainwindow.h"
 
 #include <QHBoxLayout>
-#include <QFrame>
 #include <QLineEdit>
 #include <QPushButton>
 #include <QScrollArea>

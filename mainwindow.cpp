@@ -31,13 +31,13 @@ MainWindow::MainWindow(QWidget *parent)
     auto *mainLayout = new QVBoxLayout(centralWidget);
     mainLayout->setContentsMargins(0, 0, 0, 0);
     this->statusBar()->hide();
-    this->resize(450, 100);
+    this->resize(440, 92);
 
     // Screen
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->availableGeometry();
 
-    int bottomMargin = std::min(screenGeometry.height() / 75, 70);
+    int bottomMargin = std::min(screenGeometry.height() / 60, 70);
     int x = (screenGeometry.width() - this->width()) / 2;
     int y = screenGeometry.height() - this->height() - bottomMargin;
 
@@ -48,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent)
     backgroundFrame->setStyleSheet(
         "QFrame {"
         "   background-color: #2D2D2D;"
-        "   border-radius: 15px;"
+        "   border-radius: 25px;"
         "   border: 1px solid #555;"
         "}"
     );
@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Layout
     auto *contentLayout = new QVBoxLayout(backgroundFrame);
-    contentLayout->setContentsMargins(15, 15, 15, 10);
+    contentLayout->setContentsMargins(15, 13, 15, 6);
     contentLayout->setSpacing(10);
 
     // Scroll Area

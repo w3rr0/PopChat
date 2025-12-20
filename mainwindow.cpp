@@ -57,15 +57,19 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Layout
     auto *contentLayout = new QVBoxLayout(backgroundFrame);
-    contentLayout->setContentsMargins(20, 20, 20, 20);
-    contentLayout->setSpacing(10);
+    contentLayout->setContentsMargins(15, 15, 15, 10);
+    contentLayout->setSpacing(5);
 
     // Scroll Area
     auto *scrollArea = new QScrollArea(backgroundFrame);
     scrollArea->setWidgetResizable(true);
     scrollArea->setFrameShape(QFrame::NoFrame);
+    QSizePolicy scrollAreaPolicy = scrollArea->sizePolicy();
+    scrollAreaPolicy.setVerticalPolicy(QSizePolicy::Ignored);
+    scrollArea->setSizePolicy(scrollAreaPolicy);
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    scrollArea->setMinimumHeight(0);
     scrollArea->setStyleSheet(
         "QScrollArea { background: transparent; border: none; }"
         "QScrollBar:vertical { border: none; background: #2D2D2D; width: 8px; margin: 0px; }"

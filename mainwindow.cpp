@@ -158,14 +158,11 @@ MainWindow::MainWindow(QWidget *parent)
         if (this->isVisible()) {
             this->hide();
         } else {
-            this->show();
-            this->raise();          // Put window on top
-            this->activateWindow(); // Focus on window
-            inputBox->setFocus();
+            this->popWindow(inputBox);
         }
     });
 
-    inputBox->setFocus();
+    this->popWindow(inputBox);
 }
 
 MainWindow::~MainWindow()
@@ -191,4 +188,11 @@ void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {
     QTimer::singleShot(10, this, [scrollArea](){
         scrollArea->verticalScrollBar()->setValue(scrollArea->verticalScrollBar()->maximum());
     });
+}
+
+void MainWindow::popWindow(QLineEdit *inputBox) {
+    this->show();
+    this->raise();          // Put window on top
+    this->activateWindow(); // Focus on window
+    inputBox->setFocus();   // Ready to type
 }

@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QHotkey>
+#include <QLineEdit>
 #include <QScrollArea>
 
 QT_BEGIN_NAMESPACE
@@ -24,5 +25,6 @@ private:
     QHotkey *hotkey;
 
     void fixPosition(QWidget *scrollContent, QScrollArea *scrollArea);
+    void popWindow(QLineEdit *inputBox);
 };
 #endif // MAINWINDOW_H

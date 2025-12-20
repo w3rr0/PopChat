@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QHotkey>
+#include <QScrollArea>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -15,11 +16,13 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr);
+    explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
     QHotkey *hotkey;
+
+    void fixPosition(QWidget *scrollContent, QScrollArea *scrollArea);
 };
 #endif // MAINWINDOW_H

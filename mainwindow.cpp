@@ -135,21 +135,7 @@ MainWindow::MainWindow(QWidget *parent)
 
         inputBox->clear();
 
-        scrollContent->adjustSize();
-        qApp->processEvents();
-
-        int requiredHeight = scrollContent->sizeHint().height() + 100;
-        int maxHeight = 550;
-
-        if (requiredHeight < maxHeight) {
-            this->resize(this->width(), requiredHeight);
-        } else {
-            this->resize(this->width(), maxHeight);
-        }
-
-        QTimer::singleShot(10, this, [scrollArea](){
-            scrollArea->verticalScrollBar()->setValue(scrollArea->verticalScrollBar()->maximum());
-        });
+        this->fixPosition(scrollContent, scrollArea);
 
     });
 
@@ -174,4 +160,24 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {
+    int bottomAnchor = this->y() + this->height();
+    scrollContent->adjustSize();
+    qApp->processEvents();
+
+    int overhead = this->height() - scrollArea->viewport()->height();
+    int contentHeight = scrollContent->sizeHint().height();
+    int targetHeight = contentHeight + overhead;
+
+    int maxHeight = 550;
+    int finalHeight = std::min(targetHeight, maxHeight);
+
+    int newY = bottomAnchor - finalHeight;
+    this->setGeometry(this->x(), newY, this->width(), finalHeight);
+
+    QTimer::singleShot(10, this, [scrollArea](){
+        scrollArea->verticalScrollBar()->setValue(scrollArea->verticalScrollBar()->maximum());
+    });
 }

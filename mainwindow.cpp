@@ -7,6 +7,8 @@
 #include <QScrollArea>
 #include <QScrollBar>
 #include <QTimer>
+#include <QGuiApplication>
+#include <QScreen>
 
 #include "chatbubble.h"
 
@@ -30,6 +32,16 @@ MainWindow::MainWindow(QWidget *parent)
     mainLayout->setContentsMargins(0, 0, 0, 0);
     this->statusBar()->hide();
     this->resize(450, 100);
+
+    // Screen
+    QScreen *screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->availableGeometry();
+
+    int bottomMargin = std::min(screenGeometry.height() / 25, 80);
+    int x = (screenGeometry.width() - this->width()) / 2;
+    int y = screenGeometry.height() - this->height() - bottomMargin;
+
+    this->move(x, y);
 
     // Frame
     auto *backgroundFrame = new QFrame(centralWidget);

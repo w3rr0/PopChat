@@ -37,7 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->availableGeometry();
 
-    int bottomMargin = std::min(screenGeometry.height() / 25, 80);
+    int bottomMargin = std::min(screenGeometry.height() / 75, 70);
     int x = (screenGeometry.width() - this->width()) / 2;
     int y = screenGeometry.height() - this->height() - bottomMargin;
 

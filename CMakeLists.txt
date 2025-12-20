@@ -9,8 +9,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets Network)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets Network)
 
 add_subdirectory(QHotkey)
 
@@ -45,7 +45,11 @@ else()
     endif()
 endif()
 
-target_link_libraries(PopChat PRIVATE Qt${QT_VERSION_MAJOR}::Widgets QHotkey::QHotkey)
+target_link_libraries(PopChat PRIVATE
+        Qt${QT_VERSION_MAJOR}::Widgets
+        Qt${QT_VERSION_MAJOR}::Network
+        QHotkey::QHotkey
+)
 
 target_include_directories(PopChat PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/QHotkey/QHotkey)
 

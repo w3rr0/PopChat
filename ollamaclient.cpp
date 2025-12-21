@@ -59,5 +59,30 @@ void OllamaClient::sendMessage(const QString &text) {
 }
 
 void OllamaClient::onReadyRead() {
-	// Implementation of handling read-only response from the API
+	while (currentReply->canReadLine()) {
+		QByteArray line = currentReply->readLine();
+
+		auto doc = QJsonDocument::fromJson(line);
+		QJsonObject obj = doc.object();
+
+		if (obj["done"].toBool()) {
+			ChatMessage assistantMsg;
+			assistantMsg.role = "assistant";
+			assistantMsg.content = generatedBuffer;
+			conversationHistory.append(assistantMsg);
+
+			emit replyFinished();
+			currentReply->deleteLater();
+			currentReply = nullptr;
+			return;
+		}
+
+		if (obj.contains("message")) {
+			QJsonObject messageObj = obj["message"].toObject();
+			QString token = messageObj["content"].toString();
+
+			emit textReceived(token);
+			generatedBuffer += token;
+		}
+	}
 }

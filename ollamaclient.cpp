@@ -12,7 +12,6 @@ OllamaClient::OllamaClient(QObject* parent) : QObject{ parent } {
 
 void OllamaClient::resetConversation() {
 	conversationHistory.clear();
-	qDebug() << "Historia rozmowy wyczyszczona";
 }
 
 void OllamaClient::sendMessage(const QString &text) {
@@ -59,7 +58,7 @@ void OllamaClient::sendMessage(const QString &text) {
 }
 
 void OllamaClient::onReadyRead() {
-	while (currentReply->canReadLine()) {
+	while (currentReply && currentReply->canReadLine()) {
 		QByteArray line = currentReply->readLine();
 
 		auto doc = QJsonDocument::fromJson(line);
@@ -79,10 +78,14 @@ void OllamaClient::onReadyRead() {
 
 		if (obj.contains("message")) {
 			QJsonObject messageObj = obj["message"].toObject();
-			QString token = messageObj["content"].toString();
+			if (messageObj.contains("content")) {
+				QString token = messageObj["content"].toString();
 
-			emit textReceived(token);
-			generatedBuffer += token;
+				if (!token.isEmpty()) {
+					emit textReceived(token);
+					generatedBuffer += token;
+				}
+			}
 		}
 	}
 }

@@ -32,7 +32,7 @@ private:
     QNetworkReply *currentReply;
     QVector<ChatMessage> conversationHistory;
 
-    const QString modelName = "llama3";
+    const QString modelName = "gemma3";
     const QString apiUrl = "http://localhost:11434/api/chat";
     QString generatedBuffer;
 };

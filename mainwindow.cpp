@@ -57,7 +57,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Layout
     auto *contentLayout = new QVBoxLayout(backgroundFrame);
-    contentLayout->setContentsMargins(15, 13, 15, 6);
+    contentLayout->setContentsMargins(15, 13, 15, 13);
     contentLayout->setSpacing(10);
 
     // Scroll Area
@@ -141,7 +141,7 @@ MainWindow::MainWindow(QWidget *parent)
         auto *msg = new ChatBubble(text, true, nullptr);
         conversationLayout->addWidget(msg);
 
-        currentAnswerBubble = new ChatBubble("...", false, nullptr);
+        currentAnswerBubble = new ChatBubble("", false, nullptr);
         conversationLayout->addWidget(currentAnswerBubble);
 
         client->sendMessage(text);

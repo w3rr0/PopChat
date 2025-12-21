@@ -23,7 +23,6 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
     // Inner
     auto *innerLayout = new QVBoxLayout(frame);
     innerLayout->setContentsMargins(15, 10, 15, 10);
-	innerLayout->setSizeConstraint(QLayout::SetFixedSize);
 
     // Label
     m_label = new QLabel(text, frame);
@@ -59,7 +58,7 @@ void ChatBubble::resizeEvent(QResizeEvent *event) {
         m_label->setFixedWidth(finalWidth);
     } else if (m_label && this->parentWidget()) {
         int maxWidth = this->parentWidget()->width() - 35;
-		m_label->setMaximumWidth(maxWidth);
+		m_label->setFixedWidth(maxWidth);
     }
     QWidget::resizeEvent(event);
 }

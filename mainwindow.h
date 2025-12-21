@@ -6,6 +6,9 @@
 #include <QLineEdit>
 #include <QScrollArea>
 
+#include "ollamaclient.h"
+#include "chatbubble.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class MainWindow;
@@ -23,6 +26,9 @@ public:
 private:
     Ui::MainWindow *ui;
     QHotkey *hotkey;
+
+    OllamaClient *client;
+    ChatBubble *currentAnswerBubble;
 
     void fixPosition(QWidget *scrollContent, QScrollArea *scrollArea);
     void popWindow(QLineEdit *inputBox);

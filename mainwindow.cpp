@@ -129,8 +129,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(inputBox, &QLineEdit::returnPressed, sendButton, &QPushButton::animateClick);
     connect(sendButton, &QPushButton::clicked, this, [this, inputBox, conversationLayout, introLabel, scrollArea, scrollContent]() {
         QString text = inputBox->text().trimmed();
+
         if (text.isEmpty()) return;
-        if (conversationLayout->indexOf(introLabel) != -1) {
+
+        if (introLabel && conversationLayout->indexOf(introLabel) != -1) {
             introLabel->hide();
             conversationLayout->removeWidget(introLabel);
             introLabel->deleteLater();
@@ -139,13 +141,13 @@ MainWindow::MainWindow(QWidget *parent)
         auto *msg = new ChatBubble(text, true, nullptr);
         conversationLayout->addWidget(msg);
 
-        auto *answer = new ChatBubble("Answer for you", false, nullptr);
+        auto *answer = new ChatBubble("...", false, nullptr);
         conversationLayout->addWidget(answer);
 
+        client->sendMessage(text);
+
         inputBox->clear();
-
         this->fixPosition(scrollContent, scrollArea);
-
     });
 
     inputLayout->addWidget(inputBox);
@@ -160,6 +162,22 @@ MainWindow::MainWindow(QWidget *parent)
         } else {
             this->popWindow(inputBox);
         }
+    });
+
+    // Backend
+    client = new OllamaClient(this);
+    currentAnswerBubble = nullptr;
+
+    connect(client, &OllamaClient::textReceived, this, [this, scrollArea, scrollContent](QString token) {
+        if (currentAnswerBubble) {
+            currentAnswerBubble->appendText(token);
+
+            this->fixPosition(scrollContent, scrollArea);
+        }
+    });
+    connect(client, &OllamaClient::replyFinished, this, [this]() {
+        currentAnswerBubble = nullptr;
+        qDebug() << "Ollama reply finished";
     });
 
     this->popWindow(inputBox);

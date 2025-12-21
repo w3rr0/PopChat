@@ -17,19 +17,22 @@ class OllamaClient : public QObject {
     Q_OBJECT
 public:
     explicit OllamaClient(QObject *parent = nullptr);
-    void sendMessage();
+    void sendMessage(const QString &text);
     void resetConversation();
+
 signals:
-    void textReceived();
+    void textReceived(const QString &text);
     void replyFinished();
+
 private slots:
-    void onReadOnly();
+    void onReadyRead();
+
 private:
     QNetworkAccessManager *networkManager;
     QNetworkReply *currentReply;
     QVector<ChatMessage> conversationHistory;
 
-    const QString moedelName = "llama3";
+    const QString modelName = "llama3";
     const QString apiUrl = "http://localhost:11434/api/chat";
     QString generatedBuffer;
 };

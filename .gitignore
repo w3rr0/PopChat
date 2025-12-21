@@ -83,3 +83,7 @@ CMakeLists.txt.user*
 
 #Jetbrains ide
 .idea/
+
+#Visual Studio
+.vs/
+out/

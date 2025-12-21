@@ -87,3 +87,6 @@ CMakeLists.txt.user*
 #Visual Studio
 .vs/
 out/
+
+#CMake settings
+CMakeSettings.json

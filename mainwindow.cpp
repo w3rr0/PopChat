@@ -141,8 +141,8 @@ MainWindow::MainWindow(QWidget *parent)
         auto *msg = new ChatBubble(text, true, nullptr);
         conversationLayout->addWidget(msg);
 
-        auto *answer = new ChatBubble("...", false, nullptr);
-        conversationLayout->addWidget(answer);
+        currentAnswerBubble = new ChatBubble("...", false, nullptr);
+        conversationLayout->addWidget(currentAnswerBubble);
 
         client->sendMessage(text);
 
@@ -177,7 +177,6 @@ MainWindow::MainWindow(QWidget *parent)
     });
     connect(client, &OllamaClient::replyFinished, this, [this]() {
         currentAnswerBubble = nullptr;
-        qDebug() << "Ollama reply finished";
     });
 
     this->popWindow(inputBox);
@@ -191,7 +190,7 @@ MainWindow::~MainWindow()
 void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {
     int bottomAnchor = this->y() + this->height();
     scrollContent->adjustSize();
-    qApp->processEvents();
+    //qApp->processEvents();
 
     int overhead = this->height() - scrollArea->viewport()->height();
     int contentHeight = scrollContent->sizeHint().height();

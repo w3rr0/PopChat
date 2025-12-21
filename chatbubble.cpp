@@ -59,3 +59,12 @@ void ChatBubble::resizeEvent(QResizeEvent *event) {
     }
     QWidget::resizeEvent(event);
 }
+
+void ChatBubble::appendText(const QString &chunk) {
+    if (m_label) {
+        QString current = m_label->text();
+        m_label->setText(current + chunk);
+
+        this->adjustSize();
+    }
+}

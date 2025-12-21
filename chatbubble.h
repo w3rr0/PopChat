@@ -9,6 +9,8 @@ class ChatBubble : public QWidget
 public:
     explicit ChatBubble(const QString &text, bool isSender = true, QWidget *parent = nullptr);
 
+    void appendText(const QString &chunk);
+
 protected:
     void resizeEvent(QResizeEvent *event) override;
 

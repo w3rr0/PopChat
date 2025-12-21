@@ -29,6 +29,7 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
     m_label = new QLabel(text, frame);
     m_label->setTextInteractionFlags(Qt::TextSelectableByMouse | Qt::LinksAccessibleByMouse);
     m_label->setWordWrap(true);
+	m_label->setTextFormat(Qt::MarkdownText);
 
     QFont font = m_label->font();
     font.setPixelSize(14);

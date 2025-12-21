@@ -28,6 +28,10 @@ private:
     QNetworkAccessManager *networkManager;
     QNetworkReply *currentReply;
     QVector<ChatMessage> conversationHistory;
+
+    const QString moedelName = "llama3";
+    const QString apiUrl = "http://localhost:11434/api/chat";
+    QString generatedBuffer;
 };
 
 

@@ -57,6 +57,9 @@ void ChatBubble::resizeEvent(QResizeEvent *event) {
         int textWidth = fm.horizontalAdvance(m_label->text()) + 2;
         int finalWidth = std::min(textWidth, limitWidth);
         m_label->setFixedWidth(finalWidth);
+    } else if (m_label && this->parentWidget()) {
+        int maxWidth = this->parentWidget()->width() - 35;
+		m_label->setMaximumWidth(maxWidth);
     }
     QWidget::resizeEvent(event);
 }

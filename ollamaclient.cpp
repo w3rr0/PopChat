@@ -51,7 +51,7 @@ void OllamaClient::sendMessage(const QString &text) {
 	// Signals connections
 	connect(currentReply, &QNetworkReply::readyRead, this, &OllamaClient::onReadyRead);
 	connect(currentReply, &QNetworkReply::errorOccurred, this, [this](QNetworkReply::NetworkError code) {
-		qDebug() << "B³¹d sieci: " << code << currentReply->errorString();
+		qDebug() << "Network error: " << code << currentReply->errorString();
 		emit textReceived("\n[Cannot connect to ollama, check whether it is running]");
 		currentReply->deleteLater();
 		currentReply = nullptr;

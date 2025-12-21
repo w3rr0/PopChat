@@ -13,7 +13,7 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
     layout->setSizeConstraint(QLayout::SetMinAndMaxSize);
 
     // Frame
-    auto *frame = new QFrame(this);
+    frame = new QFrame(this);
     QString bg = isSender ? "#0078D7" : "#3A3A3A";
     QString color = isSender ? "white" : "#E0E0E0";
     frame->setStyleSheet(QString(
@@ -23,7 +23,7 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
     // Inner
     auto *innerLayout = new QVBoxLayout(frame);
     innerLayout->setContentsMargins(15, 10, 15, 10);
-    innerLayout->setSizeConstraint(QLayout::SetFixedSize);
+	innerLayout->setSizeConstraint(QLayout::SetFixedSize);
 
     // Label
     m_label = new QLabel(text, frame);

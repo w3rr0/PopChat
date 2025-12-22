@@ -1,5 +1,7 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "chatbubble.h"
+#include "settingswindow.h"
 
 #include <QHBoxLayout>
 #include <QLineEdit>
@@ -9,8 +11,8 @@
 #include <QTimer>
 #include <QGuiApplication>
 #include <QScreen>
+#include <QHotkey>
 
-#include "chatbubble.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -163,7 +165,12 @@ MainWindow::MainWindow(QWidget *parent)
         "QPushButton:pressed { background-color: #252525; }"
     );
     connect(settingsButton, &QPushButton::clicked, this, [this]() {
-        // TODO: Open settings window
+        if (!settingsWindow) {
+            settingsWindow = std::make_unique<SettingsWindow>(this);
+        }
+        settingsWindow->show();
+		settingsWindow->raise();
+		settingsWindow->activateWindow();
     });
 
     inputLayout->addWidget(inputBox);

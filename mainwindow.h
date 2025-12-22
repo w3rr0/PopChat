@@ -2,12 +2,17 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QHotkey>
-#include <QLineEdit>
-#include <QScrollArea>
+#include <memory>
 
 #include "ollamaclient.h"
 #include "chatbubble.h"
+
+class QHotkey;
+class OllamaClient;
+class ChatBubble;
+class SettingsWindow;
+class QScrollArea;
+class QLineEdit;
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,9 +31,9 @@ public:
 private:
     Ui::MainWindow *ui;
     QHotkey *hotkey;
-
     OllamaClient *client;
     ChatBubble *currentAnswerBubble;
+    std::unique_ptr<SettingsWindow> settingsWindow;
 
     void fixPosition(QWidget *scrollContent, QScrollArea *scrollArea);
     void popWindow(QLineEdit *inputBox);

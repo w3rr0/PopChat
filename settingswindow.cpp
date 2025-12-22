@@ -6,7 +6,5 @@ SettingsWindow::SettingsWindow(QWidget *parent)
     : QDialog(parent)
 {
     this->setWindowTitle("Settings");
-
-    this->show();
 }
 

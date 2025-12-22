@@ -188,6 +188,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     delete ui;
+    ui = nullptr;
 }
 
 void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {

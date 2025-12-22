@@ -94,7 +94,7 @@ MainWindow::MainWindow(QWidget *parent)
     conversationLayout->addWidget(introLabel);
 
     auto *inputLayout = new QHBoxLayout();
-    inputLayout->setSpacing(10);
+    inputLayout->setSpacing(5);
 
     auto *inputBox = new QLineEdit(backgroundFrame);
     inputBox->setPlaceholderText("Ask...");
@@ -150,15 +150,15 @@ MainWindow::MainWindow(QWidget *parent)
         this->fixPosition(scrollContent, scrollArea);
     });
 
-    auto settingsButton = new QPushButton("Settings", backgroundFrame);
+    auto settingsButton = new QPushButton(backgroundFrame);
     settingsButton->setCursor(Qt::PointingHandCursor);
+    settingsButton->setIcon(QIcon(":/icons/setting.svg"));
+    settingsButton->setIconSize(QSize(20, 20));
     settingsButton->setStyleSheet(
         "QPushButton {"
         "   background-color: #0078D7;"
-        "   color: white;"
         "   border-radius: 8px;"
-        "   padding: 5px 15px;"
-        "   font-weight: bold;"
+        "   padding: 5px 5px;"
         "}"
         "QPushButton:hover { background-color: #0063B1; }"
         "QPushButton:pressed { background-color: #004C87; }"

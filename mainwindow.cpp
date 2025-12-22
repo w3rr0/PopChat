@@ -189,21 +189,36 @@ MainWindow::~MainWindow()
 
 void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {
     int bottomAnchor = this->y() + this->height();
+
+    scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+
+    // Forces layout recalculation
+    if (scrollContent->layout()) {
+        scrollContent->layout()->activate();
+        scrollContent->layout()->update();
+    }
     scrollContent->adjustSize();
-    //qApp->processEvents();
+    int contentHeight = scrollContent->layout()->sizeHint().height();
 
     int overhead = this->height() - scrollArea->viewport()->height();
-    int contentHeight = scrollContent->sizeHint().height();
     int targetHeight = contentHeight + overhead;
 
     int maxHeight = 550;
     int finalHeight = std::min(targetHeight, maxHeight);
 
+    if (targetHeight > maxHeight) {
+        scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    } else {
+        scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    }
+
     int newY = bottomAnchor - finalHeight;
     this->setGeometry(this->x(), newY, this->width(), finalHeight);
 
     QTimer::singleShot(10, this, [scrollArea](){
-        scrollArea->verticalScrollBar()->setValue(scrollArea->verticalScrollBar()->maximum());
+        if (scrollArea->verticalScrollBar()->maximum() > 0) {
+            scrollArea->verticalScrollBar()->setValue(scrollArea->verticalScrollBar()->maximum());
+        }
     });
 }
 

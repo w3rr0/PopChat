@@ -179,6 +179,9 @@ MainWindow::MainWindow(QWidget *parent)
         currentAnswerBubble = nullptr;
     });
 
+    int height = this->calculateHeight(scrollContent, scrollArea) + introLabel->height();
+    resize(this->width(), height);
+
     this->popWindow(inputBox);
 }
 
@@ -191,22 +194,8 @@ void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {
     int bottomAnchor = this->y() + this->height();
 
     this->setUpdatesEnabled(false);
-    scrollContent->adjustSize();
 
-    int contentHeight = scrollContent->layout()->sizeHint().height();
-    int overhead = this->height() - scrollArea->viewport()->height();
-    int targetHeight = contentHeight + overhead;
-
-    int maxHeight = 550;
-    int finalHeight = std::min(targetHeight, maxHeight);
-
-    if (targetHeight > maxHeight) {
-        scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
-    } else {
-        scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    }
-
-    if (this->height() != finalHeight) {
+    if (int finalHeight = this->calculateHeight(scrollContent, scrollArea); this->height() != finalHeight) {
         int newY = bottomAnchor - finalHeight;
         this->setGeometry(this->x(), newY, this->width(), finalHeight);
     }
@@ -225,4 +214,17 @@ void MainWindow::popWindow(QLineEdit *inputBox) {
     this->raise();          // Put window on top
     this->activateWindow(); // Focus on window
     inputBox->setFocus();   // Ready to type
+}
+
+int MainWindow::calculateHeight(QWidget *scrollContent, const QScrollArea *scrollArea) const {
+    scrollContent->adjustSize();
+
+    int contentHeight = scrollContent->layout()->sizeHint().height();
+    int overhead = this->height() - scrollArea->viewport()->height();
+    int targetHeight = contentHeight + overhead;
+
+    int maxHeight = 550;
+    int finalHeight = std::min(targetHeight, maxHeight);
+
+    return finalHeight;
 }

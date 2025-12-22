@@ -32,5 +32,6 @@ private:
 
     void fixPosition(QWidget *scrollContent, QScrollArea *scrollArea);
     void popWindow(QLineEdit *inputBox);
+    int calculateHeight(QWidget *scrollContent, const QScrollArea *scrollArea) const;
 };
 #endif // MAINWINDOW_H

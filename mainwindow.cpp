@@ -156,12 +156,11 @@ MainWindow::MainWindow(QWidget *parent)
     settingsButton->setIconSize(QSize(20, 20));
     settingsButton->setStyleSheet(
         "QPushButton {"
-        "   background-color: #0078D7;"
         "   border-radius: 8px;"
         "   padding: 5px 5px;"
         "}"
-        "QPushButton:hover { background-color: #0063B1; }"
-        "QPushButton:pressed { background-color: #004C87; }"
+        "QPushButton:hover { background-color: #404040; }"
+        "QPushButton:pressed { background-color: #252525; }"
     );
 
     inputLayout->addWidget(inputBox);

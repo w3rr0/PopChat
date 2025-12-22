@@ -192,14 +192,9 @@ void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {
 
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    // Forces layout recalculation
-    if (scrollContent->layout()) {
-        scrollContent->layout()->activate();
-        scrollContent->layout()->update();
-    }
     scrollContent->adjustSize();
-    int contentHeight = scrollContent->layout()->sizeHint().height();
 
+    int contentHeight = scrollContent->layout()->sizeHint().height();
     int overhead = this->height() - scrollArea->viewport()->height();
     int targetHeight = contentHeight + overhead;
 

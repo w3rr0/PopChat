@@ -190,7 +190,7 @@ MainWindow::~MainWindow()
 void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {
     int bottomAnchor = this->y() + this->height();
 
-    scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    this->setUpdatesEnabled(false);
     scrollContent->adjustSize();
 
     int contentHeight = scrollContent->layout()->sizeHint().height();
@@ -210,8 +210,10 @@ void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {
         int newY = bottomAnchor - finalHeight;
         this->setGeometry(this->x(), newY, this->width(), finalHeight);
     }
+    this->setUpdatesEnabled(true);
+    this->repaint();
 
-    QTimer::singleShot(10, this, [scrollArea](){
+    QTimer::singleShot(0, this, [scrollArea](){
         if (scrollArea->verticalScrollBar()->maximum() > 0) {
             scrollArea->verticalScrollBar()->setValue(scrollArea->verticalScrollBar()->maximum());
         }

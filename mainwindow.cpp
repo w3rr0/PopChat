@@ -213,7 +213,7 @@ void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {
     this->setUpdatesEnabled(true);
     this->repaint();
 
-    QTimer::singleShot(0, this, [scrollArea](){
+    QTimer::singleShot(10, this, [scrollArea](){
         if (scrollArea->verticalScrollBar()->maximum() > 0) {
             scrollArea->verticalScrollBar()->setValue(scrollArea->verticalScrollBar()->maximum());
         }

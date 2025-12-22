@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <memory>
 
 #include "ollamaclient.h"
 #include "chatbubble.h"
@@ -33,7 +32,7 @@ private:
     QHotkey *hotkey;
     OllamaClient *client;
     ChatBubble *currentAnswerBubble;
-    std::unique_ptr<SettingsWindow> settingsWindow;
+    SettingsWindow *settingsWindow = nullptr;
 
     void fixPosition(QWidget *scrollContent, QScrollArea *scrollArea);
     void popWindow(QLineEdit *inputBox);

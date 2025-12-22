@@ -166,7 +166,7 @@ MainWindow::MainWindow(QWidget *parent)
     );
     connect(settingsButton, &QPushButton::clicked, this, [this]() {
         if (!settingsWindow) {
-            settingsWindow = std::make_unique<SettingsWindow>(this);
+            settingsWindow = new SettingsWindow(this);
         }
         settingsWindow->show();
 		settingsWindow->raise();

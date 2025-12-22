@@ -196,7 +196,7 @@ void MainWindow::fixPosition(QWidget *scrollContent, QScrollArea *scrollArea) {
 
     this->setUpdatesEnabled(false);
 
-    if (const int finalHeight = this->calculateHeight(scrollContent, scrollArea); this->height() != finalHeight) {
+    if (const int finalHeight = this->calculateHeight(scrollContent, scrollArea); this->height() <= finalHeight) {
         const int newY = bottomAnchor - finalHeight;
         this->setGeometry(this->x(), newY, this->width(), finalHeight);
     }

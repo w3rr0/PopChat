@@ -10,7 +10,6 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
     // Layout
     auto *layout = new QHBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
-    layout->setSizeConstraint(QLayout::SetMinAndMaxSize);
 
     // Frame
     frame = new QFrame(this);
@@ -23,6 +22,7 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
     // Inner
     auto *innerLayout = new QVBoxLayout(frame);
     innerLayout->setContentsMargins(15, 10, 15, 10);
+    innerLayout->setVerticalSizeConstraint(QLayout::SetFixedSize);
 
     // Label
     m_label = new QLabel(text, frame);
@@ -33,9 +33,9 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
     QFont font = m_label->font();
     font.setPixelSize(14);
     m_label->setFont(font);
-    m_label->setStyleSheet(QString("QLabel { color: %1; background-color: transparent; border: none; }").arg(color));
+    m_label->setStyleSheet(QString("QLabel { color: %1; background-color: transparent; border: none; margin: 0px; }").arg(color));
 
-    QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Minimum);
+    QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Minimum);
     m_label->setSizePolicy(sizePolicy);
 
     innerLayout->addWidget(m_label);

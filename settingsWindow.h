@@ -1,9 +1,0 @@
-#ifndef POPCHAT_SETTINGSWINDOW_H
-#define POPCHAT_SETTINGSWINDOW_H
-
-
-class settingsWindow {
-};
-
-
-#endif //POPCHAT_SETTINGSWINDOW_H

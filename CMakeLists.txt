@@ -21,8 +21,8 @@ set(PROJECT_SOURCES
         mainwindow.ui
         ollamaclient.cpp
         ollamaclient.h
-        settingsWindow.cpp
-        settingsWindow.h
+        settingswindow.cpp
+        settingswindow.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

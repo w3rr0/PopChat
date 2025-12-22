@@ -88,5 +88,8 @@ CMakeLists.txt.user*
 .vs/
 out/
 
+#Visual Studio Code
+.vscode/
+
 #CMake settings
 CMakeSettings.json

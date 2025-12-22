@@ -162,6 +162,9 @@ MainWindow::MainWindow(QWidget *parent)
         "QPushButton:hover { background-color: #404040; }"
         "QPushButton:pressed { background-color: #252525; }"
     );
+    connect(settingsButton, &QPushButton::clicked, this, [this]() {
+        // TODO: Open settings window
+    });
 
     inputLayout->addWidget(inputBox);
     inputLayout->addWidget(settingsButton);

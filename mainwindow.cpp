@@ -219,12 +219,12 @@ void MainWindow::popWindow(QLineEdit *inputBox) {
 int MainWindow::calculateHeight(QWidget *scrollContent, const QScrollArea *scrollArea) const {
     scrollContent->adjustSize();
 
-    int contentHeight = scrollContent->layout()->sizeHint().height();
-    int overhead = this->height() - scrollArea->viewport()->height();
-    int targetHeight = contentHeight + overhead;
+    const int contentHeight = scrollContent->layout()->sizeHint().height();
+    const int overhead = this->height() - scrollArea->viewport()->height();
+    const int targetHeight = contentHeight + overhead;
 
-    int maxHeight = 550;
-    int finalHeight = std::min(targetHeight, maxHeight);
+    constexpr int maxHeight = 550;
+    const int finalHeight = std::min(targetHeight, maxHeight);
 
     return finalHeight;
 }

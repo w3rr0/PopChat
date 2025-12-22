@@ -179,8 +179,11 @@ MainWindow::MainWindow(QWidget *parent)
         currentAnswerBubble = nullptr;
     });
 
-    int height = this->calculateHeight(scrollContent, scrollArea) + introLabel->height();
-    resize(this->width(), height);
+    const int minHeight = this->calculateHeight(scrollContent, scrollArea);
+    resize(this->width(), minHeight + introLabel->height());
+
+    this->setMinimumSize(250, minHeight);
+    this->setMaximumSize(screenGeometry.width() / 1.5, screenGeometry.height() / 1.1);
 
     this->popWindow(inputBox);
 }

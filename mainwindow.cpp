@@ -150,7 +150,22 @@ MainWindow::MainWindow(QWidget *parent)
         this->fixPosition(scrollContent, scrollArea);
     });
 
+    auto settingsButton = new QPushButton("Settings", backgroundFrame);
+    settingsButton->setCursor(Qt::PointingHandCursor);
+    settingsButton->setStyleSheet(
+        "QPushButton {"
+        "   background-color: #0078D7;"
+        "   color: white;"
+        "   border-radius: 8px;"
+        "   padding: 5px 15px;"
+        "   font-weight: bold;"
+        "}"
+        "QPushButton:hover { background-color: #0063B1; }"
+        "QPushButton:pressed { background-color: #004C87; }"
+    );
+
     inputLayout->addWidget(inputBox);
+    inputLayout->addWidget(settingsButton);
     inputLayout->addWidget(sendButton);
     contentLayout->addLayout(inputLayout, 0);   // Takes as little space as needed
 

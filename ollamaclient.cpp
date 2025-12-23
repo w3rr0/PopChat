@@ -103,7 +103,7 @@ void OllamaClient::onReadyRead() {
 
 void OllamaClient::setModelName(const QString &name) {
 	modelName = name.trimmed();
-	}
+}
 
 QString OllamaClient::getModelName() {
 	return modelName;

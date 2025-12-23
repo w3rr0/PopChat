@@ -93,3 +93,6 @@ out/
 
 #CMake settings
 CMakeSettings.json
+
+# NeoVim
+.cache/

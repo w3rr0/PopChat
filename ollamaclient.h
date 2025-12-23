@@ -31,7 +31,7 @@ private slots:
 
 private:
     QNetworkAccessManager *networkManager;
-    QNetworkReply *currentReply;
+    QNetworkReply *currentReply = nullptr;
     QVector<ChatMessage> conversationHistory;
 
     static QString modelName;

@@ -6,6 +6,8 @@
 
 QT_BEGIN_NAMESPACE
 class QLabel;
+class QLineEdit;
+class QWidget;
 QT_END_NAMESPACE
 
 class SettingsWindow final : public QDialog {
@@ -16,6 +18,7 @@ public:
     ~SettingsWindow() override = default;
 
 private:
+    void saveSettings(QLineEdit *modelInput);
 };
 
 

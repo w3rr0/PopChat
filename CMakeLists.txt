@@ -23,6 +23,8 @@ set(PROJECT_SOURCES
         ollamaclient.h
         settingswindow.cpp
         settingswindow.h
+        chatbubble.cpp
+        chatbubble.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

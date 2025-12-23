@@ -19,6 +19,8 @@ public:
     explicit OllamaClient(QObject *parent = nullptr);
     void sendMessage(const QString &text);
     void resetConversation();
+    static void setModelName(const QString& name);
+    static QString getModelName();
 
 signals:
     void textReceived(const QString &text);
@@ -32,7 +34,7 @@ private:
     QNetworkReply *currentReply;
     QVector<ChatMessage> conversationHistory;
 
-    const QString modelName = "gemma3";
+    static QString modelName;
     const QString apiUrl = "http://localhost:11434/api/chat";
     QString generatedBuffer;
 };

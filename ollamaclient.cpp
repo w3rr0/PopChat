@@ -6,6 +6,8 @@
 #include <QJsonArray>
 #include <QDebug>
 
+QString OllamaClient::modelName = "";
+
 OllamaClient::OllamaClient(QObject* parent) : QObject{ parent } {
 	networkManager = new QNetworkAccessManager(this);
 }
@@ -88,4 +90,12 @@ void OllamaClient::onReadyRead() {
 			}
 		}
 	}
+}
+
+void OllamaClient::setModelName(const QString &name) {
+	modelName = name.trimmed();
+	}
+
+QString OllamaClient::getModelName() {
+	return modelName;
 }

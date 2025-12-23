@@ -17,6 +17,15 @@ void OllamaClient::resetConversation() {
 }
 
 void OllamaClient::sendMessage(const QString &text) {
+	if (text.isEmpty()) {
+		return;
+	}
+	
+	if (modelName.isEmpty()) {
+		emit textReceived("[Model not selected]");
+		return;
+	}
+
 	ChatMessage userMsg;
 	userMsg.role = "user";
 	userMsg.content = text;

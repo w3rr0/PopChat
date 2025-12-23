@@ -1,6 +1,11 @@
 #include "settingswindow.h"
+#include "ollamaclient.h"
 
-#include <QLabel>
+#include <QPushButton>
+#include <QSettings>
+#include <QLineEdit>
+#include <QVBoxLayout>
+#include <QGuiApplication>
 
 SettingsWindow::SettingsWindow(QWidget *parent)
     : QDialog(parent)

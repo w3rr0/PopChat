@@ -39,7 +39,7 @@ SettingsWindow::SettingsWindow(QWidget *parent)
         "   padding: 10px"
         "}"
     );
-    innerFrame->setMaximumSize(200, 200);
+    innerFrame->setMaximumSize(500, 500);
     bgLayout->addWidget(innerFrame, 0, Qt::AlignCenter);
 
     // Layout
@@ -48,13 +48,23 @@ SettingsWindow::SettingsWindow(QWidget *parent)
     contentLayout->setSpacing(10);
 
     auto *settingFrame = new QFrame(innerFrame);
+    settingFrame->setContentsMargins(0, 0, 0, 0);
     auto *settingLayout = new QHBoxLayout(settingFrame);
+    settingLayout->setContentsMargins(0, 0, 0, 0);
     settingLayout->setSpacing(10);
+    settingLayout->setSizeConstraint(QLayout::SetFixedSize);
 
-    settingLayout->addWidget(new QLabel("Model Name:", settingFrame));
+    //settingLayout->addWidget(new QLabel("Model Name:", settingFrame), 0);
+    auto *label = new QLabel("Model Name:", settingFrame);
+    label->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
+    label->setStyleSheet(
+        "padding: 0px;"
+        "margins: 0px;"
+    );
+    settingLayout->addWidget(label, 0);
 
     auto *modelInput = new QLineEdit(settingFrame);
-    settingLayout->addWidget(modelInput);
+    settingLayout->addWidget(modelInput, 1);
 
     contentLayout->addWidget(settingFrame);
 

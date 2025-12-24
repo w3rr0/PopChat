@@ -13,7 +13,7 @@ SettingsWindow::SettingsWindow(QWidget *parent)
     this->setWindowTitle("Settings");
 
     // Window
-    auto* mainLayout = new QVBoxLayout();
+    auto* mainLayout = new QVBoxLayout(this);
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
     // Frame

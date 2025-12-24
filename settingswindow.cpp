@@ -54,12 +54,10 @@ SettingsWindow::SettingsWindow(QWidget *parent)
     settingLayout->setSpacing(10);
     settingLayout->setSizeConstraint(QLayout::SetFixedSize);
 
-    //settingLayout->addWidget(new QLabel("Model Name:", settingFrame), 0);
     auto *label = new QLabel("Model Name:", settingFrame);
     label->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
     label->setStyleSheet(
         "padding: 0px;"
-        "margins: 0px;"
     );
     settingLayout->addWidget(label, 0);
 

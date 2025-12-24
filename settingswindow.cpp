@@ -56,8 +56,8 @@ SettingsWindow::SettingsWindow(QWidget *parent)
         this->hide();
         });
 
-    this->resize(200, 300);
     this->setMaximumSize(innerFrame->sizeHint().width() + 100, innerFrame->sizeHint().height() + 100);
+    this->resize(this->maximumSize());
 }
 
 void SettingsWindow::saveSettings(QLineEdit *modelInput) {

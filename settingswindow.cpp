@@ -1,4 +1,5 @@
 #include "settingswindow.h"
+#include <QtWidgets/qboxlayout.h>
 #include "ollamaclient.h"
 
 #include <QPushButton>
@@ -20,14 +21,28 @@ SettingsWindow::SettingsWindow(QWidget *parent)
     auto* backgroundFrame = new QFrame(this);
     backgroundFrame->setStyleSheet(
         "QFrame {"
-        "   background-color: #2D2D2D;"
+        "   background-color: #202020;"
         "}"
     );
     mainLayout->addWidget(backgroundFrame);
 
+    auto *bgLayout = new QVBoxLayout(backgroundFrame);
+
+    auto *innerFrame = new QFrame(backgroundFrame);
+    innerFrame->setStyleSheet(
+        "QFrame {"
+        "   background-color: #2D2D2D;"
+        "   border-radius: 15px;"
+        "   border-color: black;"
+        "   padding: 10px"
+        "}"
+    );
+    innerFrame->setMaximumSize(200, 200);
+    bgLayout->addWidget(innerFrame, 0, Qt::AlignCenter);
+
     // Layout
-    auto* contentLayout = new QVBoxLayout(backgroundFrame);
-    contentLayout->setContentsMargins(15, 13, 15, 13);
+    auto* contentLayout = new QVBoxLayout(innerFrame);
+    contentLayout->setContentsMargins(15, 15, 15, 15);
     contentLayout->setSpacing(10);
 
     auto *modelInput = new QLineEdit(this);

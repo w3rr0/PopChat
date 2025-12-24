@@ -1,8 +1,10 @@
 #!/bin/bash
 
+source .env
+
 # Reload configuration (detect new file)
 echo "--- CMake config ---"
-cmake -B build -DCMAKE_PREFIX_PATH=/Users/mac/Qt/6.10.1/macos -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+cmake -B build -DCMAKE_PREFIX_PATH=$DCMAKE_PREFIX_PATH -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 
 # Compile
 echo "--- Building project ---"

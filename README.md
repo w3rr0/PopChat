@@ -11,29 +11,18 @@ Designed to be unobtrusive and efficient, PopChat acts as a quick overlay for yo
 * **Local & Private:** Fully powered by your local [Ollama](https://ollama.com/) instance.
 * **Configurable:** Easily switch between models (e.g., Llama3, Mistral) via the settings menu).
 
-### Third Level Heading
+## Getting Started
 
-Some *italic* and **bold** text and `inline code`.
+### Prerequisites
 
-An empty line starts a new paragraph.
+1.  **Ollama**: Ensure Ollama is installed (you can check by `ollama list`).
+2.  **Model**: Pull a model if you haven't already (e.g., `ollama pull llama3`).
 
-Use two spaces at the end  
-to force a line break.
+### Installation
 
-A horizontal ruler follows:
+PopChat is build with **C++** and **Qt6**.
 
----
-
-Add links inline like [this link to the Qt homepage](https://www.qt.io),
-or with a reference like [this other link to the Qt homepage][1].
-
-    Add code blocks with
-    four spaces at the front.
-
-> A blockquote
-> starts with >
->
-> and has the same paragraph rules as normal text.
+Remember to provide the path to Qt library in .env file (look .env.example).
 
 First Level Heading in Alternate Style
 ======================================

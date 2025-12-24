@@ -96,3 +96,7 @@ CMakeSettings.json
 
 # NeoVim
 .cache/
+compile_commands.json
+
+# environment
+.env

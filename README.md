@@ -1,6 +1,8 @@
-# First Level Heading
+# PopChat
 
-Paragraph.
+A lightweight desktop widget that provides instant access to local language models via Ollama engine. 
+
+Designed to be unobtrusive and efficient, PopChat acts as a quick overlay for your AI interactions without cluttering your workspace. It brings the power of local LLMs to your fingertips with a single keystroke.
 
 ## Second Level Heading
 

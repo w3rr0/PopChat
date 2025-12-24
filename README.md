@@ -31,3 +31,6 @@ Remember to provide the path to Qt library in .env file (look .env.example).
 3. Type your prompt and hit enter
 4. Press Ctrl+Shift+k to show or hide the widget
 
+---
+
+Distributed under the `MIT License`. See [LICENSE](https://github.com/w3rr0/PopChat/blob/master/LICENSE) for more information.

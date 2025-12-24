@@ -13,17 +13,14 @@ SettingsWindow::SettingsWindow(QWidget *parent)
     this->setWindowTitle("Settings");
 
     // Window
-    auto* centralWidget = new QWidget(this);
-    auto* mainLayout = new QVBoxLayout(centralWidget);
+    auto* mainLayout = new QVBoxLayout();
     mainLayout->setContentsMargins(0, 0, 0, 0);
 
     // Frame
-    auto* backgroundFrame = new QFrame(centralWidget);
+    auto* backgroundFrame = new QFrame(this);
     backgroundFrame->setStyleSheet(
         "QFrame {"
         "   background-color: #2D2D2D;"
-        "   border-radius: 25px;"
-        "   border: 1px solid #555;"
         "}"
     );
     mainLayout->addWidget(backgroundFrame);
@@ -43,6 +40,8 @@ SettingsWindow::SettingsWindow(QWidget *parent)
         this->saveSettings(modelInput);
         this->hide();
         });
+
+    this->resize(200, 300);
 }
 
 void SettingsWindow::saveSettings(QLineEdit *modelInput) {

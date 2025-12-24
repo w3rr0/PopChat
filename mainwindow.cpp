@@ -150,7 +150,9 @@ MainWindow::MainWindow(QWidget *parent)
         client->sendMessage(text);
 
         inputBox->clear();
-        this->fixPosition(scrollContent, scrollArea);
+        QTimer::singleShot(0, this, [this, scrollContent, scrollArea]() {
+            this->fixPosition(scrollContent, scrollArea);
+        });
     });
 
     auto settingsButton = new QPushButton(backgroundFrame);

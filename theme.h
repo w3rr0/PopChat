@@ -10,12 +10,12 @@ namespace Theme {
     const QString Pressed = "#191919";
 
     // Accent scheme
-    const QString Accent = "#0078D7";
-    const QString AccentHover = "#0063B1";
-    const QString AccentPressed = "#004C87";
+    const QString Accent = "#F0ECE1";
+    const QString AccentHover = "#DBD8CE";
+    const QString AccentPressed = "#BAB8AF";
 
     // Text
-    const QString TextMain = "white";
+    const QString TextMain = "#3B3B3B";
     const QString TextUser = "#E0E0E0";
 
     const QString Response = "#3A3A3A";

@@ -80,3 +80,23 @@ CMakeLists.txt.user*
 .rcc/
 .uic/
 /build*/
+
+#Jetbrains ide
+.idea/
+
+#Visual Studio
+.vs/
+out/
+
+#Visual Studio Code
+.vscode/
+
+#CMake settings
+CMakeSettings.json
+
+# NeoVim
+.cache/
+compile_commands.json
+
+# environment
+.env

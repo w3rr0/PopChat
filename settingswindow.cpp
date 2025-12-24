@@ -62,6 +62,7 @@ SettingsWindow::SettingsWindow(QWidget *parent)
     settingLayout->addWidget(label, 0);
 
     auto *modelInput = new QLineEdit(settingFrame);
+    modelInput->setPlaceholderText("ex. llama3");
     settingLayout->addWidget(modelInput, 1);
 
     contentLayout->addWidget(settingFrame);

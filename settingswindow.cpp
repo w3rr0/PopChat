@@ -6,7 +6,9 @@
 #include <QSettings>
 #include <QLineEdit>
 #include <QVBoxLayout>
+#include <QHBoxLayout>
 #include <QGuiApplication>
+#include <QLabel>
 
 SettingsWindow::SettingsWindow(QWidget *parent)
     : QDialog(parent)
@@ -45,8 +47,16 @@ SettingsWindow::SettingsWindow(QWidget *parent)
     contentLayout->setContentsMargins(15, 15, 15, 15);
     contentLayout->setSpacing(10);
 
-    auto *modelInput = new QLineEdit(this);
-    contentLayout->addWidget(modelInput);
+    auto *settingFrame = new QFrame(innerFrame);
+    auto *settingLayout = new QHBoxLayout(settingFrame);
+    settingLayout->setSpacing(10);
+
+    settingLayout->addWidget(new QLabel("Model Name:", settingFrame));
+
+    auto *modelInput = new QLineEdit(settingFrame);
+    settingLayout->addWidget(modelInput);
+
+    contentLayout->addWidget(settingFrame);
 
     auto *saveButton = new QPushButton("Save", this);
     contentLayout->addWidget(saveButton);

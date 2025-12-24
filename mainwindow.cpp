@@ -116,15 +116,15 @@ MainWindow::MainWindow(QWidget *parent)
     inputBox->setAttribute(Qt::WA_MacShowFocusRect, false);
 #endif
 
-    auto *sendButton = new QPushButton("Send", backgroundFrame);
+    auto *sendButton = new QPushButton(backgroundFrame);
     sendButton->setCursor(Qt::PointingHandCursor);
+    sendButton->setIcon(QIcon(":/icons/send.png"));
+    sendButton->setIconSize(QSize(20, 20));
     sendButton->setStyleSheet(
         "QPushButton {"
         "   background-color: #0078D7;"
-        "   color: white;"
         "   border-radius: 8px;"
-        "   padding: 5px 15px;"
-        "   font-weight: bold;"
+        "   padding: 5px 5px;"
         "}"
         "QPushButton:hover { background-color: #0063B1; }"
         "QPushButton:pressed { background-color: #004C87; }"

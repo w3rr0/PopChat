@@ -36,7 +36,7 @@ private:
     QNetworkReply *currentReply = nullptr;
     QVector<ChatMessage> conversationHistory;
 
-    static QString modelName;
+    inline static QString modelName = "";
     const QString apiUrl = "http://localhost:11434/api/chat";
     const QUrl modelsUrl = QUrl("http://localhost:11434/api/tags");
     QString generatedBuffer;

@@ -1,10 +1,9 @@
 #include "ollamaclient.h"
 
-#include <QNetworkRequest>
-#include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
 #include <QDebug>
+#include <QNetworkReply>
 
 QString OllamaClient::modelName = "";
 
@@ -32,10 +31,10 @@ void OllamaClient::sendMessage(const QString &text) {
 	conversationHistory.append(userMsg);
 
 	QJsonArray messagesArray;
-	for (const auto& msg : conversationHistory) {
+	for (const auto&[role, content] : conversationHistory) {
 		QJsonObject msgObject;
-		msgObject["role"] = msg.role;
-		msgObject["content"] = msg.content;
+		msgObject["role"] = role;
+		msgObject["content"] = content;
 		messagesArray.append(msgObject);
 	}
 
@@ -45,8 +44,8 @@ void OllamaClient::sendMessage(const QString &text) {
 	root["messages"] = messagesArray;
 	root["stream"] = true;
 
-	QJsonDocument doc(root);
-	QByteArray data = doc.toJson();
+	const QJsonDocument doc(root);
+	const QByteArray data = doc.toJson();
 
 	// HTTP request config
 	QNetworkRequest request((QUrl(apiUrl)));
@@ -60,7 +59,7 @@ void OllamaClient::sendMessage(const QString &text) {
 
 	// Signals connections
 	connect(currentReply, &QNetworkReply::readyRead, this, &OllamaClient::onReadyRead);
-	connect(currentReply, &QNetworkReply::errorOccurred, this, [this](QNetworkReply::NetworkError code) {
+	connect(currentReply, &QNetworkReply::errorOccurred, this, [this](const QNetworkReply::NetworkError code) {
 		qDebug() << "Network error: " << code << currentReply->errorString();
 		emit textReceived("\n[Cannot connect to ollama, check whether it is running]");
 		currentReply->deleteLater();
@@ -88,11 +87,8 @@ void OllamaClient::onReadyRead() {
 		}
 
 		if (obj.contains("message")) {
-			QJsonObject messageObj = obj["message"].toObject();
-			if (messageObj.contains("content")) {
-				QString token = messageObj["content"].toString();
-
-				if (!token.isEmpty()) {
+			if (QJsonObject messageObj = obj["message"].toObject(); messageObj.contains("content")) {
+				if (QString token = messageObj["content"].toString(); !token.isEmpty()) {
 					emit textReceived(token);
 					generatedBuffer += token;
 				}
@@ -110,14 +106,14 @@ QString OllamaClient::getModelName() {
 }
 
 void OllamaClient::fetchModels() {
-	QNetworkRequest request(modelsUrl);
+	const QNetworkRequest request(modelsUrl);
 
 	QNetworkReply *reply = networkManager->get(request);
 
 	connect(reply, &QNetworkReply::finished, this, [this, reply]() {
 		if (reply->error() == QNetworkReply::NoError) {
-			QByteArray data = reply->readAll();
-			QJsonDocument doc = QJsonDocument::fromJson(data);
+			const QByteArray data = reply->readAll();
+			const QJsonDocument doc = QJsonDocument::fromJson(data);
 			QJsonObject root = doc.object();
 
 			QJsonArray modelsArray = root["models"].toArray();

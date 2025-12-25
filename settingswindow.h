@@ -25,6 +25,7 @@ signals:
 
 private:
     static void saveSettings(const QString &selectedModel);
+    void changeSize(const QFrame &innerFrame);
     QComboBox *modelInput;
     OllamaClient *client;
     QLabel *warning = new QLabel(this);

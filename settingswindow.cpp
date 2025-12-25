@@ -39,7 +39,6 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
         "   padding: 10px"
         "}"
     ).arg(Theme::WindowBg));
-    innerFrame->setMaximumSize(500, 500);
     bgLayout->addWidget(innerFrame, 0, Qt::AlignCenter);
 
     // Layout
@@ -110,16 +109,17 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
     contentLayout->addWidget(warning);
     warning->hide();
 
-    connect(client, &OllamaClient::errorOccurs, this, [this](const QString &errorMessage) {
+    connect(client, &OllamaClient::errorOccurs, this, [this, innerFrame](const QString &errorMessage) {
         warning->setText(errorMessage);
         warning->show();
+        this->changeSize(*innerFrame);
     });
-    connect(client, &OllamaClient::modelsReceived, this, [this]() {
+    connect(client, &OllamaClient::modelsReceived, this, [this, innerFrame]() {
         warning->hide();
+        this->changeSize(*innerFrame);
     });
 
-    this->setMaximumSize(innerFrame->sizeHint().width() + 100, innerFrame->sizeHint().height() + 100);
-    this->resize(this->maximumSize());
+    this->changeSize(*innerFrame);
 }
 
 void SettingsWindow::saveSettings(const QString &selectedModel) {
@@ -133,4 +133,9 @@ void SettingsWindow::saveSettings(const QString &selectedModel) {
     settings.setValue("modelName", selectedModel);
 
     settings.sync();
+}
+
+void SettingsWindow::changeSize(const QFrame &innerFrame) {
+    this->setMaximumSize(innerFrame.sizeHint().width() + 100, innerFrame.sizeHint().height() + 100);
+    this->resize(this->maximumSize());
 }

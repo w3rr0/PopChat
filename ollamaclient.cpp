@@ -5,8 +5,6 @@
 #include <QDebug>
 #include <QNetworkReply>
 
-QString OllamaClient::modelName = "";
-
 OllamaClient::OllamaClient(QObject* parent) : QObject{ parent } {
 	networkManager = new QNetworkAccessManager(this);
 }
@@ -125,8 +123,11 @@ void OllamaClient::fetchModels() {
 			}
 
 			emit modelsReceived(modelNames);
+		} else if (reply->error() == QNetworkReply::ConnectionRefusedError) {
+			qDebug() << "Connection refused";	// Ollama not installed
 		} else {
 			qDebug() << "Error fetching models:" << reply->errorString();
+			qDebug() << reply->error();
 		}
 		reply->deleteLater();
 	});

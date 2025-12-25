@@ -2,11 +2,11 @@
 #define POPCHAT_OLLAMACLIENT_H
 
 #include <QObject>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QVector>
-#include <QString>
+#include <QUrl>
 
+class QString;
+class QNetworkReply;
+class QNetworkAccessManager;
 
 struct ChatMessage {
     QString role;

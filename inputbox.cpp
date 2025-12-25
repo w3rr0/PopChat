@@ -19,12 +19,12 @@ InputBox::InputBox(QWidget *parent)
         "   color: white;"
         "}"
         "QLineEdit[isEmpty=\"true\"] {"
-        "   color: red;"
-        "   border: 1px solid red;"
+        "   color: %3;"
+        "   border: 1px solid %3;"
         "}"
         "QLineEdit:focus { border: 1px solid %2; }"
-        "QLineEdit[isEmpty=\"true\"]:focus { border: 1px solid red;}"
-    ).arg(Theme::WindowBg).arg(Theme::Accent));
+        "QLineEdit[isEmpty=\"true\"]:focus { border: 1px solid %3;}"
+    ).arg(Theme::WindowBg).arg(Theme::Accent).arg(Theme::Warning));
 
 #ifdef Q_OS_MAC
     this->setAttribute(Qt::WA_MacShowFocusRect, false);

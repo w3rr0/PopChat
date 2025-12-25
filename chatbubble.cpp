@@ -36,7 +36,7 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
     m_label->setFont(font);
     m_label->setStyleSheet(QString("QLabel { color: %1; background-color: transparent; border: none; margin: 0px; }").arg(color));
 
-    QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Minimum);
+    constexpr QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Minimum);
     m_label->setSizePolicy(sizePolicy);
 
     innerLayout->addWidget(m_label);
@@ -52,13 +52,13 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
 
 void ChatBubble::resizeEvent(QResizeEvent *event) {
     if (m_label && m_isSender) {
-        int limitWidth = this->width() * 0.75;
-        QFontMetrics fm(m_label->font());
-        int textWidth = fm.horizontalAdvance(m_label->text()) + 2;
-        int finalWidth = std::min(textWidth, limitWidth);
+        const int limitWidth = this->width() * 0.75;
+        const QFontMetrics fm(m_label->font());
+        const int textWidth = fm.horizontalAdvance(m_label->text()) + 2;
+        const int finalWidth = std::min(textWidth, limitWidth);
         m_label->setFixedWidth(finalWidth);
     } else if (m_label && this->parentWidget()) {
-        int maxWidth = this->parentWidget()->width() - 35;
+        const int maxWidth = this->parentWidget()->width() - 35;
 		m_label->setFixedWidth(maxWidth);
     }
     QWidget::resizeEvent(event);
@@ -66,7 +66,7 @@ void ChatBubble::resizeEvent(QResizeEvent *event) {
 
 void ChatBubble::appendText(const QString &chunk) {
     if (m_label) {
-        QString current = m_label->text();
+        const QString current = m_label->text();
         m_label->setText(current + chunk);
 
         this->adjustSize();

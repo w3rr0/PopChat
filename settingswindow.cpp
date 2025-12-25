@@ -9,6 +9,7 @@
 #include <QLineEdit>
 #include <QLabel>
 #include <QComboBox>
+#include <QScreen>
 
 SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
     : QDialog(parent), client(client)
@@ -120,6 +121,14 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
     });
 
     this->changeSize(*innerFrame);
+
+    const QScreen *screen = QGuiApplication::primaryScreen();
+    const QRect screenGeometry = screen->availableGeometry();
+
+    const int x = (screenGeometry.width() - this->width()) / 2;
+    const int y = (screenGeometry.height() - this->height()) / 2;
+
+    this->move(x, y);
 }
 
 void SettingsWindow::saveSettings(const QString &selectedModel) {

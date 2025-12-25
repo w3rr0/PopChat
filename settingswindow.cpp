@@ -76,7 +76,7 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
         "   selection-background-color: %3;"
         "   color: white;"
         "}"
-    ).arg(Theme::WindowBg).arg(Theme::Surface).arg(Theme::Accent));
+    ).arg(Theme::WindowBg, Theme::Surface, Theme::Accent));
     settingLayout->addWidget(modelInput, 1);
 
     client->fetchModels();

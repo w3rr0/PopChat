@@ -24,7 +24,7 @@ InputBox::InputBox(QWidget *parent)
         "}"
         "QLineEdit:focus { border: 1px solid %2; }"
         "QLineEdit[isEmpty=\"true\"]:focus { border: 1px solid %3;}"
-    ).arg(Theme::WindowBg).arg(Theme::Accent).arg(Theme::Warning));
+    ).arg(Theme::WindowBg, Theme::Accent, Theme::Warning));
 
 #ifdef Q_OS_MAC
     this->setAttribute(Qt::WA_MacShowFocusRect, false);

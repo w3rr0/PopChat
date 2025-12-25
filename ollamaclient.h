@@ -13,7 +13,7 @@ struct ChatMessage {
     QString content;
 };
 
-class OllamaClient : public QObject {
+class OllamaClient final : public QObject {
     Q_OBJECT
 public:
     explicit OllamaClient(QObject *parent = nullptr);

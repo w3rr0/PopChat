@@ -130,5 +130,7 @@ void SettingsWindow::saveSettings(const QString &selectedModel) {
     }
 
     OllamaClient::setModelName(selectedModel);
+    settings.setValue("modelName", selectedModel);
+
     settings.sync();
 }

@@ -38,12 +38,12 @@ MainWindow::MainWindow(QWidget *parent)
     this->resize(440, 92);
 
     // Screen
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect screenGeometry = screen->availableGeometry();
+    const QScreen *screen = QGuiApplication::primaryScreen();
+    const QRect screenGeometry = screen->availableGeometry();
 
-    int bottomMargin = std::min(screenGeometry.height() / 60, 70);
-    int x = (screenGeometry.width() - this->width()) / 2;
-    int y = screenGeometry.height() - this->height() - bottomMargin;
+    const int bottomMargin = std::min(screenGeometry.height() / 60, 70);
+    const int x = (screenGeometry.width() - this->width()) / 2;
+    const int y = screenGeometry.height() - this->height() - bottomMargin;
 
     this->move(x, y);
 
@@ -168,7 +168,7 @@ MainWindow::MainWindow(QWidget *parent)
     inputLayout->addWidget(inputBox);
     inputLayout->addWidget(settingsButton);
     inputLayout->addWidget(sendButton);
-    contentLayout->addLayout(inputLayout, 0);   // Takes as little space as needed
+    contentLayout->addLayout(inputLayout, 0);
 
     // Hotkey
     hotkey = new QHotkey(QKeySequence("Ctrl+Shift+K"), true, this);

@@ -6,6 +6,7 @@
 
 #include <qstyle.h>
 
+
 InputBox::InputBox(QWidget *parent)
     : QLineEdit(parent) {
 

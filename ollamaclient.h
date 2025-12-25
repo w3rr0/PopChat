@@ -27,6 +27,7 @@ signals:
     void textReceived(const QString &text);
     void replyFinished();
     void modelsReceived(const QStringList &models);
+    void errorOccurs(const QString &errorMessage);
 
 private slots:
     void onReadyRead();

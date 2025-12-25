@@ -2,6 +2,7 @@
 #define POPCHAT_SETTINGSWINDOW_H
 
 #include <QDialog>
+#include <QLabel>
 
 
 QT_BEGIN_NAMESPACE
@@ -26,6 +27,7 @@ private:
     static void saveSettings(const QString &selectedModel);
     QComboBox *modelInput;
     OllamaClient *client;
+    QLabel *warning = new QLabel(this);
 };
 
 

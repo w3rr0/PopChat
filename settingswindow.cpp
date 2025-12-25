@@ -104,6 +104,20 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
         this->hide();
         });
 
+    warning->setStyleSheet(QString(
+        "color: %1;"
+        ).arg(Theme::Warning));
+    contentLayout->addWidget(warning);
+    warning->hide();
+
+    connect(client, &OllamaClient::errorOccurs, this, [this](const QString &errorMessage) {
+        warning->setText(errorMessage);
+        warning->show();
+    });
+    connect(client, &OllamaClient::modelsReceived, this, [this]() {
+        warning->hide();
+    });
+
     this->setMaximumSize(innerFrame->sizeHint().width() + 100, innerFrame->sizeHint().height() + 100);
     this->resize(this->maximumSize());
 }

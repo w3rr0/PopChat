@@ -126,8 +126,9 @@ void OllamaClient::fetchModels() {
 
 			emit modelsReceived(modelNames);
 		} else if (reply->error() == QNetworkReply::ConnectionRefusedError) {
-			qDebug() << "Connection refused";	// Ollama not installed
+			this->emit errorOccurs("Connection refused: Check whether Ollama is installed and running");
 		} else {
+			this->emit errorOccurs(reply->errorString());
 			qDebug() << "Error fetching models:" << reply->errorString();
 			qDebug() << reply->error();
 		}

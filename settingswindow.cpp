@@ -6,8 +6,6 @@
 #include <QPushButton>
 #include <QSettings>
 #include <QLineEdit>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 #include <QGuiApplication>
 #include <QLabel>
 
@@ -64,6 +62,17 @@ SettingsWindow::SettingsWindow(QWidget *parent)
 
     auto *modelInput = new QLineEdit(settingFrame);
     modelInput->setPlaceholderText("ex. llama3");
+    modelInput->setStyleSheet(QString(
+        "QLineEdit {"
+        "   background-color: %1;"
+        "   color: white;"
+        "   border: 1px solid #555;"
+        "   border-radius: 8px;"
+        "   padding: 5px;"
+        "   font-size: 14px;"
+        "}"
+        "QLineEdit:focus { border: 1px solid %2; }"
+    ).arg(Theme::WindowBg).arg(Theme::Accent));
     settingLayout->addWidget(modelInput, 1);
 
     contentLayout->addWidget(settingFrame);

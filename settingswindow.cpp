@@ -97,8 +97,10 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
     contentLayout->addWidget(saveButton);
 
     connect(saveButton, &QPushButton::clicked, this, [this]() {
-        const QString selectedModel = modelInput->currentText();
-        saveSettings(selectedModel);
+        if (const QString selectedModel = modelInput->currentText().trimmed(); selectedModel != OllamaClient::getModelName()) {
+            saveSettings(selectedModel);
+            emit modelChanged();
+        }
         this->hide();
         });
 

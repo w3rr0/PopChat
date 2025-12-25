@@ -101,7 +101,7 @@ MainWindow::MainWindow(QWidget *parent)
     inputLayout->setSpacing(5);
 
     auto *inputBox = new QLineEdit(backgroundFrame);
-    inputBox->setPlaceholderText("Ask...");
+    inputBox->setPlaceholderText(!OllamaClient::getModelName().isEmpty() ? "Ask..." : "Select model first");
     inputBox->setStyleSheet(QString(
         "QLineEdit {"
         "   background-color: %1;"
@@ -113,6 +113,9 @@ MainWindow::MainWindow(QWidget *parent)
         "}"
         "QLineEdit:focus { border: 1px solid %2; }"
     ).arg(Theme::WindowBg).arg(Theme::Accent));
+    connect(settingsWindow, &SettingsWindow::modelChanged, inputBox, [inputBox]() {
+        inputBox->setPlaceholderText(!OllamaClient::getModelName().isEmpty() ? "Ask..." : "Select model first");
+    });
 #ifdef Q_OS_MAC
     inputBox->setAttribute(Qt::WA_MacShowFocusRect, false);
 #endif

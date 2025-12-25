@@ -96,7 +96,9 @@ void OllamaClient::onReadyRead() {
 }
 
 void OllamaClient::setModelName(const QString &name) {
-	modelName = name.trimmed();
+	if (const auto newName = name.trimmed(); newName != modelName) {
+		modelName = newName;
+	}
 }
 
 QString OllamaClient::getModelName() {

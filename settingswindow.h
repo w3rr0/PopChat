@@ -19,6 +19,9 @@ public:
     explicit SettingsWindow(OllamaClient *client, QWidget *parent = nullptr);
     ~SettingsWindow() override = default;
 
+signals:
+    void modelChanged();
+
 private:
     static void saveSettings(const QString &selectedModel);
     QComboBox *modelInput;

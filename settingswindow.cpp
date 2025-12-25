@@ -93,7 +93,7 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
         "}"
         "QPushButton:hover { background-color: %2; }"
         "QPushButton:pressed { background-color: %3; }"
-    ).arg(Theme::Accent).arg(Theme::AccentHover).arg(Theme::AccentPressed).arg(Theme::TextMain));
+    ).arg(Theme::Accent, Theme::AccentHover, Theme::AccentPressed, Theme::TextMain));
     contentLayout->addWidget(saveButton);
 
     connect(saveButton, &QPushButton::clicked, this, [this]() {

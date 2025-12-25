@@ -3,7 +3,7 @@
 
 #include <QLabel>
 
-class ChatBubble : public QWidget
+class ChatBubble final : public QWidget
 {
     Q_OBJECT
 public:

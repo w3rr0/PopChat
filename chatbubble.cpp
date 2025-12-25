@@ -4,7 +4,7 @@
 #include <QHBoxLayout>
 #include <QFontMetrics>
 
-ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
+ChatBubble::ChatBubble(const QString &text, const bool isSender, QWidget *parent)
     : QWidget(parent) {
     m_isSender = isSender;
 

@@ -3,9 +3,9 @@
 #include "chatbubble.h"
 #include "settingswindow.h"
 #include "theme.h"
+#include "inputbox.h"
 
 #include <QHBoxLayout>
-#include <QLineEdit>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QScrollBar>
@@ -100,25 +100,10 @@ MainWindow::MainWindow(QWidget *parent)
     auto *inputLayout = new QHBoxLayout();
     inputLayout->setSpacing(5);
 
-    auto *inputBox = new QLineEdit(backgroundFrame);
-    inputBox->setPlaceholderText(!OllamaClient::getModelName().isEmpty() ? "Ask..." : "Select model first");
-    inputBox->setStyleSheet(QString(
-        "QLineEdit {"
-        "   background-color: %1;"
-        "   color: white;"
-        "   border: 1px solid #555;"
-        "   border-radius: 8px;"
-        "   padding: 5px;"
-        "   font-size: 14px;"
-        "}"
-        "QLineEdit:focus { border: 1px solid %2; }"
-    ).arg(Theme::WindowBg).arg(Theme::Accent));
+    auto *inputBox = new InputBox(this);
     connect(settingsWindow, &SettingsWindow::modelChanged, inputBox, [inputBox]() {
-        inputBox->setPlaceholderText(!OllamaClient::getModelName().isEmpty() ? "Ask..." : "Select model first");
+        inputBox->reloadPlaceholderText();
     });
-#ifdef Q_OS_MAC
-    inputBox->setAttribute(Qt::WA_MacShowFocusRect, false);
-#endif
 
     auto *sendButton = new QPushButton(backgroundFrame);
     sendButton->setCursor(Qt::PointingHandCursor);

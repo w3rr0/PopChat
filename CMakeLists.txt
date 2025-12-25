@@ -25,6 +25,8 @@ set(PROJECT_SOURCES
         settingswindow.h
         chatbubble.cpp
         chatbubble.h
+        inputbox.cpp
+        inputbox.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

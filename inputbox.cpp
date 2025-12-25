@@ -37,8 +37,10 @@ void InputBox::reloadPlaceholderText() {
     const bool isEmpty = OllamaClient::getModelName().isEmpty();
     if (isEmpty) {
         this->setPlaceholderText("Select model first");
+        this->setEnabled(false);
     } else {
         this->setPlaceholderText("Ask...");
+        this->setEnabled(true);
     }
     this->setProperty("isEmpty", isEmpty);
 

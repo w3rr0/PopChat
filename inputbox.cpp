@@ -30,10 +30,10 @@ InputBox::InputBox(QWidget *parent)
     this->setAttribute(Qt::WA_MacShowFocusRect, false);
 #endif
 
-    this->reloadPlaceholderText();
+    this->reloadStyle();
 }
 
-void InputBox::reloadPlaceholderText() {
+void InputBox::reloadStyle() {
     const bool isEmpty = OllamaClient::getModelName().isEmpty();
     if (isEmpty) {
         this->setPlaceholderText("Select model first");

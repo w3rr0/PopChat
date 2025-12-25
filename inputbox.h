@@ -10,7 +10,7 @@ class InputBox final : public QLineEdit {
 public:
     explicit InputBox(QWidget *parent = nullptr);
     ~InputBox() override = default;
-    void reloadPlaceholderText();
+    void reloadStyle();
 };
 
 

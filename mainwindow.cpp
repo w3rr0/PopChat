@@ -102,7 +102,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     auto *inputBox = new InputBox(this);
     connect(settingsWindow, &SettingsWindow::modelChanged, inputBox, [inputBox]() {
-        inputBox->reloadPlaceholderText();
+        inputBox->reloadStyle();
     });
 
     auto *sendButton = new QPushButton(backgroundFrame);

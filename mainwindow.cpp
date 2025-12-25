@@ -132,7 +132,7 @@ MainWindow::MainWindow(QWidget *parent)
     ).arg(Theme::Accent).arg(Theme::AccentHover).arg(Theme::AccentPressed));
     connect(inputBox, &QLineEdit::returnPressed, sendButton, &QPushButton::click);
     connect(sendButton, &QPushButton::clicked, this, [this, inputBox, conversationLayout, introLabel, scrollArea, scrollContent]() {
-        QString text = inputBox->text().trimmed();
+        const QString text = inputBox->text().trimmed();
 
         if (text.isEmpty()) return;
 
@@ -156,7 +156,7 @@ MainWindow::MainWindow(QWidget *parent)
         });
     });
 
-    auto settingsButton = new QPushButton(backgroundFrame);
+    const auto settingsButton = new QPushButton(backgroundFrame);
     settingsButton->setCursor(Qt::PointingHandCursor);
     settingsButton->setIcon(QIcon(":/icons/setting.svg"));
     settingsButton->setIconSize(QSize(20, 20));
@@ -196,7 +196,7 @@ MainWindow::MainWindow(QWidget *parent)
     client = new OllamaClient(this);
     currentAnswerBubble = nullptr;
 
-    connect(client, &OllamaClient::textReceived, this, [this, scrollArea, scrollContent](QString token) {
+    connect(client, &OllamaClient::textReceived, this, [this, scrollArea, scrollContent](const QString &token) {
         if (currentAnswerBubble) {
             currentAnswerBubble->appendText(token);
 

@@ -4,19 +4,26 @@
 #include "settingswindow.h"
 #include "theme.h"
 
+#include <qstyle.h>
+
 InputBox::InputBox(QWidget *parent)
     : QLineEdit(parent) {
 
     this->setStyleSheet(QString(
         "QLineEdit {"
         "   background-color: %1;"
-        "   color: white;"
         "   border: 1px solid #555;"
         "   border-radius: 8px;"
         "   padding: 5px;"
         "   font-size: 14px;"
+        "   color: white;"
+        "}"
+        "QLineEdit[isEmpty=\"true\"] {"
+        "   color: red;"
+        "   border: 1px solid red;"
         "}"
         "QLineEdit:focus { border: 1px solid %2; }"
+        "QLineEdit[isEmpty=\"true\"]:focus { border: 1px solid red;}"
     ).arg(Theme::WindowBg).arg(Theme::Accent));
 
 #ifdef Q_OS_MAC
@@ -27,5 +34,14 @@ InputBox::InputBox(QWidget *parent)
 }
 
 void InputBox::reloadPlaceholderText() {
-    this->setPlaceholderText(!OllamaClient::getModelName().isEmpty() ? "Ask..." : "Select model first");
+    const bool isEmpty = OllamaClient::getModelName().isEmpty();
+    if (isEmpty) {
+        this->setPlaceholderText("Select model first");
+    } else {
+        this->setPlaceholderText("Ask...");
+    }
+    this->setProperty("isEmpty", isEmpty);
+
+    this->style()->unpolish(this);
+    this->style()->polish(this);
 }

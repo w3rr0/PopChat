@@ -2,6 +2,7 @@
 #include "./ui_mainwindow.h"
 #include "chatbubble.h"
 #include "settingswindow.h"
+#include "theme.h"
 
 #include <QHBoxLayout>
 #include <QLineEdit>
@@ -48,13 +49,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Frame
     auto *backgroundFrame = new QFrame(centralWidget);
-    backgroundFrame->setStyleSheet(
+    backgroundFrame->setStyleSheet(QString(
         "QFrame {"
-        "   background-color: #2D2D2D;"
+        "   background-color: %1;"
         "   border-radius: 25px;"
         "   border: 1px solid #555;"
         "}"
-    );
+    ).arg(Theme::Surface));
     mainLayout->addWidget(backgroundFrame);
     setCentralWidget(centralWidget);
 
@@ -73,13 +74,13 @@ MainWindow::MainWindow(QWidget *parent)
     scrollArea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     scrollArea->setMinimumHeight(0);
-    scrollArea->setStyleSheet(
+    scrollArea->setStyleSheet(QString(
         "QScrollArea { background: transparent; border: none; }"
-        "QScrollBar:vertical { border: none; background: #2D2D2D; width: 8px; margin: 0px; }"
+        "QScrollBar:vertical { border: none; background: %1; width: 8px; margin: 0px; }"
         "QScrollBar::handle:vertical { background: #555; min-height: 20px; border-radius: 4px; }"
         "QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0px; }"
         "QWidget { background: transparent; }"
-    );
+    ).arg(Theme::Surface));
 
     auto *scrollContent = new QWidget();
 
@@ -101,34 +102,34 @@ MainWindow::MainWindow(QWidget *parent)
 
     auto *inputBox = new QLineEdit(backgroundFrame);
     inputBox->setPlaceholderText("Ask...");
-    inputBox->setStyleSheet(
+    inputBox->setStyleSheet(QString(
         "QLineEdit {"
-        "   background-color: #404040;"
+        "   background-color: %1;"
         "   color: white;"
         "   border: 1px solid #555;"
         "   border-radius: 8px;"
         "   padding: 5px;"
         "   font-size: 14px;"
         "}"
-        "QLineEdit:focus { border: 1px solid #0078D7; }"
-    );
+        "QLineEdit:focus { border: 1px solid %2; }"
+    ).arg(Theme::WindowBg).arg(Theme::Accent));
 #ifdef Q_OS_MAC
     inputBox->setAttribute(Qt::WA_MacShowFocusRect, false);
 #endif
 
-    auto *sendButton = new QPushButton("Send", backgroundFrame);
+    auto *sendButton = new QPushButton(backgroundFrame);
     sendButton->setCursor(Qt::PointingHandCursor);
-    sendButton->setStyleSheet(
+    sendButton->setIcon(QIcon(":/icons/send.png"));
+    sendButton->setIconSize(QSize(20, 20));
+    sendButton->setStyleSheet(QString(
         "QPushButton {"
-        "   background-color: #0078D7;"
-        "   color: white;"
+        "   background-color: %1;"
         "   border-radius: 8px;"
-        "   padding: 5px 15px;"
-        "   font-weight: bold;"
+        "   padding: 5px 5px;"
         "}"
-        "QPushButton:hover { background-color: #0063B1; }"
-        "QPushButton:pressed { background-color: #004C87; }"
-    );
+        "QPushButton:hover { background-color: %2; }"
+        "QPushButton:pressed { background-color: %3; }"
+    ).arg(Theme::Accent).arg(Theme::AccentHover).arg(Theme::AccentPressed));
     connect(inputBox, &QLineEdit::returnPressed, sendButton, &QPushButton::click);
     connect(sendButton, &QPushButton::clicked, this, [this, inputBox, conversationLayout, introLabel, scrollArea, scrollContent]() {
         QString text = inputBox->text().trimmed();
@@ -159,14 +160,14 @@ MainWindow::MainWindow(QWidget *parent)
     settingsButton->setCursor(Qt::PointingHandCursor);
     settingsButton->setIcon(QIcon(":/icons/setting.svg"));
     settingsButton->setIconSize(QSize(20, 20));
-    settingsButton->setStyleSheet(
+    settingsButton->setStyleSheet(QString(
         "QPushButton {"
         "   border-radius: 8px;"
         "   padding: 5px 5px;"
         "}"
-        "QPushButton:hover { background-color: #404040; }"
-        "QPushButton:pressed { background-color: #252525; }"
-    );
+        "QPushButton:hover { background-color: %1; }"
+        "QPushButton:pressed { background-color: %2; }"
+    ).arg(Theme::WindowBg).arg(Theme::Pressed));
     connect(settingsButton, &QPushButton::clicked, this, [this]() {
         if (!settingsWindow) {
             settingsWindow = new SettingsWindow(this);

@@ -1,4 +1,5 @@
 #include "chatbubble.h"
+#include "theme.h"
 
 #include <QHBoxLayout>
 #include <QFontMetrics>
@@ -13,8 +14,8 @@ ChatBubble::ChatBubble(const QString &text, bool isSender, QWidget *parent)
 
     // Frame
     frame = new QFrame(this);
-    QString bg = isSender ? "#0078D7" : "#3A3A3A";
-    QString color = isSender ? "white" : "#E0E0E0";
+    const QString bg = isSender ? Theme::Accent : Theme::Response;
+    const QString color = isSender ? Theme::TextMain : Theme::TextUser;
     frame->setStyleSheet(QString(
         "QFrame { background-color: %1; border-radius: 12px; }"
     ).arg(bg));

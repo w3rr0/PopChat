@@ -1,12 +1,11 @@
 #include "settingswindow.h"
 #include <QtWidgets/qboxlayout.h>
 #include "ollamaclient.h"
+#include "theme.h"
 
 #include <QPushButton>
 #include <QSettings>
 #include <QLineEdit>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
 #include <QGuiApplication>
 #include <QLabel>
 
@@ -21,24 +20,24 @@ SettingsWindow::SettingsWindow(QWidget *parent)
 
     // Frame
     auto* backgroundFrame = new QFrame(this);
-    backgroundFrame->setStyleSheet(
+    backgroundFrame->setStyleSheet(QString(
         "QFrame {"
-        "   background-color: #202020;"
+        "   background-color: %1;"
         "}"
-    );
+    ).arg(Theme::Surface));
     mainLayout->addWidget(backgroundFrame);
 
     auto *bgLayout = new QVBoxLayout(backgroundFrame);
 
     auto *innerFrame = new QFrame(backgroundFrame);
-    innerFrame->setStyleSheet(
+    innerFrame->setStyleSheet(QString(
         "QFrame {"
-        "   background-color: #2D2D2D;"
+        "   background-color: %1;"
         "   border-radius: 15px;"
         "   border-color: black;"
         "   padding: 10px"
         "}"
-    );
+    ).arg(Theme::WindowBg));
     innerFrame->setMaximumSize(500, 500);
     bgLayout->addWidget(innerFrame, 0, Qt::AlignCenter);
 
@@ -63,11 +62,32 @@ SettingsWindow::SettingsWindow(QWidget *parent)
 
     auto *modelInput = new QLineEdit(settingFrame);
     modelInput->setPlaceholderText("ex. llama3");
+    modelInput->setStyleSheet(QString(
+        "QLineEdit {"
+        "   background-color: %1;"
+        "   color: white;"
+        "   border: 1px solid #555;"
+        "   border-radius: 8px;"
+        "   padding: 5px;"
+        "   font-size: 14px;"
+        "}"
+        "QLineEdit:focus { border: 1px solid %2; }"
+    ).arg(Theme::WindowBg).arg(Theme::Accent));
     settingLayout->addWidget(modelInput, 1);
 
     contentLayout->addWidget(settingFrame);
 
     auto *saveButton = new QPushButton("Save", this);
+    saveButton->setStyleSheet(QString(
+        "QPushButton {"
+        "   background-color: %1;"
+        "   border-radius: 8px;"
+        "   padding: 5px 5px;"
+        "   color: %4;"
+        "}"
+        "QPushButton:hover { background-color: %2; }"
+        "QPushButton:pressed { background-color: %3; }"
+    ).arg(Theme::Accent).arg(Theme::AccentHover).arg(Theme::AccentPressed).arg(Theme::TextMain));
     contentLayout->addWidget(saveButton);
 
     connect(saveButton, &QPushButton::clicked, this, [this, modelInput]() {

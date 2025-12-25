@@ -119,7 +119,7 @@ void OllamaClient::fetchModels() {
 			QJsonArray modelsArray = root["models"].toArray();
 			QStringList modelNames;
 
-			for (const QJsonValue &value : modelsArray) {
+			for (const auto &value : modelsArray) {
 				QJsonObject obj = value.toObject();
 				modelNames.append(obj["name"].toString());
 			}

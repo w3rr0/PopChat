@@ -2,18 +2,18 @@
 #define POPCHAT_OLLAMACLIENT_H
 
 #include <QObject>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
-#include <QVector>
-#include <QString>
+#include <QUrl>
 
+class QString;
+class QNetworkReply;
+class QNetworkAccessManager;
 
 struct ChatMessage {
     QString role;
     QString content;
 };
 
-class OllamaClient : public QObject {
+class OllamaClient final : public QObject {
     Q_OBJECT
 public:
     explicit OllamaClient(QObject *parent = nullptr);
@@ -21,10 +21,13 @@ public:
     void resetConversation();
     static void setModelName(const QString& name);
     static QString getModelName();
+    void fetchModels();
 
 signals:
     void textReceived(const QString &text);
     void replyFinished();
+    void modelsReceived(const QStringList &models);
+    void errorOccurs(const QString &errorMessage);
 
 private slots:
     void onReadyRead();
@@ -34,8 +37,9 @@ private:
     QNetworkReply *currentReply = nullptr;
     QVector<ChatMessage> conversationHistory;
 
-    static QString modelName;
+    inline static QString modelName = "";
     const QString apiUrl = "http://localhost:11434/api/chat";
+    const QUrl modelsUrl = QUrl("http://localhost:11434/api/tags");
     QString generatedBuffer;
 };
 

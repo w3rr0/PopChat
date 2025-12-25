@@ -3,9 +3,9 @@
 #include "chatbubble.h"
 #include "settingswindow.h"
 #include "theme.h"
+#include "inputbox.h"
 
 #include <QHBoxLayout>
-#include <QLineEdit>
 #include <QPushButton>
 #include <QScrollArea>
 #include <QScrollBar>
@@ -38,12 +38,12 @@ MainWindow::MainWindow(QWidget *parent)
     this->resize(440, 92);
 
     // Screen
-    QScreen *screen = QGuiApplication::primaryScreen();
-    QRect screenGeometry = screen->availableGeometry();
+    const QScreen *screen = QGuiApplication::primaryScreen();
+    const QRect screenGeometry = screen->availableGeometry();
 
-    int bottomMargin = std::min(screenGeometry.height() / 60, 70);
-    int x = (screenGeometry.width() - this->width()) / 2;
-    int y = screenGeometry.height() - this->height() - bottomMargin;
+    const int bottomMargin = std::min(screenGeometry.height() / 60, 70);
+    const int x = (screenGeometry.width() - this->width()) / 2;
+    const int y = screenGeometry.height() - this->height() - bottomMargin;
 
     this->move(x, y);
 
@@ -100,22 +100,10 @@ MainWindow::MainWindow(QWidget *parent)
     auto *inputLayout = new QHBoxLayout();
     inputLayout->setSpacing(5);
 
-    auto *inputBox = new QLineEdit(backgroundFrame);
-    inputBox->setPlaceholderText("Ask...");
-    inputBox->setStyleSheet(QString(
-        "QLineEdit {"
-        "   background-color: %1;"
-        "   color: white;"
-        "   border: 1px solid #555;"
-        "   border-radius: 8px;"
-        "   padding: 5px;"
-        "   font-size: 14px;"
-        "}"
-        "QLineEdit:focus { border: 1px solid %2; }"
-    ).arg(Theme::WindowBg).arg(Theme::Accent));
-#ifdef Q_OS_MAC
-    inputBox->setAttribute(Qt::WA_MacShowFocusRect, false);
-#endif
+    auto *inputBox = new InputBox(this);
+    connect(settingsWindow, &SettingsWindow::modelChanged, inputBox, [inputBox]() {
+        inputBox->reloadStyle();
+    });
 
     auto *sendButton = new QPushButton(backgroundFrame);
     sendButton->setCursor(Qt::PointingHandCursor);
@@ -132,7 +120,7 @@ MainWindow::MainWindow(QWidget *parent)
     ).arg(Theme::Accent).arg(Theme::AccentHover).arg(Theme::AccentPressed));
     connect(inputBox, &QLineEdit::returnPressed, sendButton, &QPushButton::click);
     connect(sendButton, &QPushButton::clicked, this, [this, inputBox, conversationLayout, introLabel, scrollArea, scrollContent]() {
-        QString text = inputBox->text().trimmed();
+        const QString text = inputBox->text().trimmed();
 
         if (text.isEmpty()) return;
 
@@ -156,7 +144,7 @@ MainWindow::MainWindow(QWidget *parent)
         });
     });
 
-    auto settingsButton = new QPushButton(backgroundFrame);
+    const auto settingsButton = new QPushButton(backgroundFrame);
     settingsButton->setCursor(Qt::PointingHandCursor);
     settingsButton->setIcon(QIcon(":/icons/setting.svg"));
     settingsButton->setIconSize(QSize(20, 20));
@@ -170,7 +158,7 @@ MainWindow::MainWindow(QWidget *parent)
     ).arg(Theme::WindowBg).arg(Theme::Pressed));
     connect(settingsButton, &QPushButton::clicked, this, [this]() {
         if (!settingsWindow) {
-            settingsWindow = new SettingsWindow(this);
+            settingsWindow = new SettingsWindow(client, this);
         }
         settingsWindow->show();
 		settingsWindow->raise();
@@ -180,7 +168,7 @@ MainWindow::MainWindow(QWidget *parent)
     inputLayout->addWidget(inputBox);
     inputLayout->addWidget(settingsButton);
     inputLayout->addWidget(sendButton);
-    contentLayout->addLayout(inputLayout, 0);   // Takes as little space as needed
+    contentLayout->addLayout(inputLayout, 0);
 
     // Hotkey
     hotkey = new QHotkey(QKeySequence("Ctrl+Shift+K"), true, this);
@@ -196,7 +184,7 @@ MainWindow::MainWindow(QWidget *parent)
     client = new OllamaClient(this);
     currentAnswerBubble = nullptr;
 
-    connect(client, &OllamaClient::textReceived, this, [this, scrollArea, scrollContent](QString token) {
+    connect(client, &OllamaClient::textReceived, this, [this, scrollArea, scrollContent](const QString &token) {
         if (currentAnswerBubble) {
             currentAnswerBubble->appendText(token);
 

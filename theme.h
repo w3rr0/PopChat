@@ -14,6 +14,9 @@ namespace Theme {
     const QString AccentHover = "#DBD8CE";
     const QString AccentPressed = "#BAB8AF";
 
+    // Warning
+    const QString Warning = "#FF1200";
+
     // Text
     const QString TextMain = "#3B3B3B";
     const QString TextUser = "#E0E0E0";

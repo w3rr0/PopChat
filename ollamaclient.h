@@ -21,10 +21,12 @@ public:
     void resetConversation();
     static void setModelName(const QString& name);
     static QString getModelName();
+    void fetchModels();
 
 signals:
     void textReceived(const QString &text);
     void replyFinished();
+    void modelsReceived(const QStringList &models);
 
 private slots:
     void onReadyRead();
@@ -36,6 +38,7 @@ private:
 
     static QString modelName;
     const QString apiUrl = "http://localhost:11434/api/chat";
+    const QUrl modelsUrl = QUrl("http://localhost:11434/api/tags");
     QString generatedBuffer;
 };
 

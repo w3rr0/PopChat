@@ -108,3 +108,30 @@ void OllamaClient::setModelName(const QString &name) {
 QString OllamaClient::getModelName() {
 	return modelName;
 }
+
+void OllamaClient::fetchModels() {
+	QNetworkRequest request(modelsUrl);
+
+	QNetworkReply *reply = networkManager->get(request);
+
+	connect(reply, &QNetworkReply::finished, this, [this, reply]() {
+		if (reply->error() == QNetworkReply::NoError) {
+			QByteArray data = reply->readAll();
+			QJsonDocument doc = QJsonDocument::fromJson(data);
+			QJsonObject root = doc.object();
+
+			QJsonArray modelsArray = root["models"].toArray();
+			QStringList modelNames;
+
+			for (const QJsonValue &value : modelsArray) {
+				QJsonObject obj = value.toObject();
+				modelNames.append(obj["name"].toString());
+			}
+
+			emit modelsReceived(modelNames);
+		} else {
+			qDebug() << "Error fetching models:" << reply->errorString();
+		}
+		reply->deleteLater();
+	});
+}

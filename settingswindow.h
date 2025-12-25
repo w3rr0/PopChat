@@ -8,17 +8,21 @@ QT_BEGIN_NAMESPACE
 class QLabel;
 class QLineEdit;
 class QWidget;
+class OllamaClient;
+class QComboBox;
 QT_END_NAMESPACE
 
 class SettingsWindow final : public QDialog {
     Q_OBJECT
 
 public:
-    explicit SettingsWindow(QWidget *parent = nullptr);
+    explicit SettingsWindow(OllamaClient *client, QWidget *parent = nullptr);
     ~SettingsWindow() override = default;
 
 private:
-    void saveSettings(QLineEdit *modelInput);
+    static void saveSettings(const QString &selectedModel);
+    QComboBox *modelInput;
+    OllamaClient *client;
 };
 
 

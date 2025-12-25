@@ -170,7 +170,7 @@ MainWindow::MainWindow(QWidget *parent)
     ).arg(Theme::WindowBg).arg(Theme::Pressed));
     connect(settingsButton, &QPushButton::clicked, this, [this]() {
         if (!settingsWindow) {
-            settingsWindow = new SettingsWindow(this);
+            settingsWindow = new SettingsWindow(client, this);
         }
         settingsWindow->show();
 		settingsWindow->raise();

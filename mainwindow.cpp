@@ -248,3 +248,17 @@ int MainWindow::calculateHeight(QWidget *scrollContent, const QScrollArea *scrol
 
     return finalHeight;
 }
+
+void MainWindow::mousePressEvent(QMouseEvent* event) {
+    if (event->button() == Qt::LeftButton) {
+        dragPosition = event->globalPosition().toPoint() - frameGeometry().topLeft();
+        event->accept();
+    }
+}
+
+void MainWindow::mouseMoveEvent(QMouseEvent* event) {
+    if (event->buttons() & Qt::LeftButton) {
+        move(event->globalPosition().toPoint() - dragPosition);
+        event->accept();
+    }
+}

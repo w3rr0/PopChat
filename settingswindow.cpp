@@ -2,7 +2,6 @@
 #include <QtWidgets/qboxlayout.h>
 #include "ollamaclient.h"
 #include "theme.h"
-#include "ui_mainwindow.h"
 
 #include <QPushButton>
 #include <QSettings>
@@ -49,10 +48,11 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
 
     auto *settingFrame = new QFrame(innerFrame);
     settingFrame->setContentsMargins(0, 0, 0, 0);
+    settingFrame->setFixedWidth(270);
     auto *settingLayout = new QHBoxLayout(settingFrame);
     settingLayout->setContentsMargins(0, 0, 0, 0);
     settingLayout->setSpacing(10);
-    settingLayout->setSizeConstraint(QLayout::SetFixedSize);
+    settingLayout->setSizeConstraint(QLayout::SetMaximumSize);
 
     auto *label = new QLabel("Model Name:", settingFrame);
     label->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
@@ -81,7 +81,7 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
 
     client->fetchModels();
 
-    contentLayout->addWidget(settingFrame);
+    contentLayout->addWidget(settingFrame, 1, Qt::AlignCenter);
 
     auto *saveButton = new QPushButton("Save", this);
     saveButton->setStyleSheet(QString(

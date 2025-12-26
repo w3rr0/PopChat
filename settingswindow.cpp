@@ -48,9 +48,11 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
 
     auto *settingFrame = new QFrame(innerFrame);
     settingFrame->setContentsMargins(0, 0, 0, 0);
+    settingFrame->setFixedWidth(270);
     auto *settingLayout = new QHBoxLayout(settingFrame);
     settingLayout->setContentsMargins(0, 0, 0, 0);
     settingLayout->setSpacing(10);
+    settingLayout->setSizeConstraint(QLayout::SetMaximumSize);
 
     auto *label = new QLabel("Model Name:", settingFrame);
     label->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
@@ -79,7 +81,7 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
 
     client->fetchModels();
 
-    contentLayout->addWidget(settingFrame, Qt::AlignCenter);
+    contentLayout->addWidget(settingFrame, 1, Qt::AlignCenter);
 
     auto *saveButton = new QPushButton("Save", this);
     saveButton->setStyleSheet(QString(

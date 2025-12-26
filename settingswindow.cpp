@@ -115,10 +115,24 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
         warning->show();
         this->changeSize(*innerFrame);
     });
-    connect(client, &OllamaClient::modelsReceived, this, [this, innerFrame]() {
+    connect(client, &OllamaClient::modelsReceived, this, [this, innerFrame](const QStringList& models) {
+        modelInput->clear();
+        modelInput->addItems(models);
+
+        auto currentModel = OllamaClient::getModelName();
+
+        if (currentModel.isEmpty() && !models.isEmpty()) {
+            const QString defaultModel = models.first();
+			modelInput->setCurrentText(defaultModel);
+            this->saveSettings(defaultModel);
+            emit modelChanged();
+        } else if (!currentModel.isEmpty()) {
+            modelInput->setCurrentText(currentModel);
+        }
+
         warning->hide();
         this->changeSize(*innerFrame);
-    });
+        });
 
     this->changeSize(*innerFrame);
 

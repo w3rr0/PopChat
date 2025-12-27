@@ -32,6 +32,7 @@ public:
 protected:
 	void mousePressEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
+    bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result);
 
 private:
     Ui::MainWindow *ui;
@@ -40,6 +41,7 @@ private:
     ChatBubble *currentAnswerBubble;
     SettingsWindow *settingsWindow = nullptr;
     QPoint dragPosition;
+    const int borderWidth = 5;
 
     void fixPosition(QWidget *scrollContent, QScrollArea *scrollArea);
     void popWindow(QLineEdit *inputBox);

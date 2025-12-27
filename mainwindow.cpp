@@ -14,6 +14,12 @@
 #include <QScreen>
 #include <QHotkey>
 
+#ifdef Q_OS_WIN
+    #define NOMINMAX
+    #include <windows.h>
+    #include <windowsx.h>
+#endif
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -261,4 +267,64 @@ void MainWindow::mouseMoveEvent(QMouseEvent* event) {
         move(event->globalPosition().toPoint() - dragPosition);
         event->accept();
     }
+}
+
+bool MainWindow::nativeEvent(const QByteArray& eventType, void* message, qintptr* result) {
+#ifdef Q_OS_WIN
+    MSG* msg = static_cast<MSG*>(message);
+
+    if (msg->message == WM_NCHITTEST) {
+        // Mouse coordinates
+		const int xPos = GET_X_LPARAM(msg->lParam);
+        const int yPos = GET_Y_LPARAM(msg->lParam);
+		
+		// Window relative coordinates
+        const QPoint pos = mapFromGlobal(QPoint(xPos, yPos));
+
+        const int w = this->width();
+        const int h = this->height();
+
+        // Check where the coursor is
+        const bool left = pos.x() < borderWidth;
+        const bool right = pos.x() >= w - borderWidth;
+        const bool top = pos.y() < borderWidth;
+        const bool bottom = pos.y() >= h - borderWidth;
+
+        if (left && top) {
+            *result = HTTOPLEFT;
+            return true;
+        }
+        if (right && top) {
+            *result = HTTOPRIGHT;
+            return true;
+        }
+        if (left && bottom) {
+            *result = HTBOTTOMLEFT;
+            return true;
+        }
+        if (right && bottom) {
+            *result = HTBOTTOMRIGHT;
+            return true;
+        }
+        if (left) {
+            *result = HTLEFT;
+            return true;
+        }
+        if (right) {
+            *result = HTRIGHT;
+            return true;
+        }
+        if (top) {
+            *result = HTTOP;
+            return true;
+        }
+        if (bottom) {
+            *result = HTBOTTOM;
+            return true;
+        }
+    }
+
+
+#endif // Q_OS_WIN
+    return QMainWindow::nativeEvent(eventType, message, result);
 }

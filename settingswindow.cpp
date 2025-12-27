@@ -56,9 +56,10 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
 
     auto *label = new QLabel("Model Name:", settingFrame);
     label->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-    label->setStyleSheet(
+    label->setStyleSheet(QString(
         "padding: 0px;"
-    );
+        "color: %1;"
+    ).arg(Theme::TextUser));
     settingLayout->addWidget(label, 0);
 
     modelInput = new QComboBox(settingFrame);
@@ -115,10 +116,24 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
         warning->show();
         this->changeSize(*innerFrame);
     });
-    connect(client, &OllamaClient::modelsReceived, this, [this, innerFrame]() {
+    connect(client, &OllamaClient::modelsReceived, this, [this, innerFrame](const QStringList& models) {
+        modelInput->clear();
+        modelInput->addItems(models);
+
+        auto currentModel = OllamaClient::getModelName();
+
+        if (currentModel.isEmpty() && !models.isEmpty()) {
+            const QString defaultModel = models.first();
+			modelInput->setCurrentText(defaultModel);
+            this->saveSettings(defaultModel);
+            emit modelChanged();
+        } else if (!currentModel.isEmpty()) {
+            modelInput->setCurrentText(currentModel);
+        }
+
         warning->hide();
         this->changeSize(*innerFrame);
-    });
+        });
 
     this->changeSize(*innerFrame);
 

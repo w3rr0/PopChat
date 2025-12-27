@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMouseEvent>
+#include <QPoint>
 
 #include "ollamaclient.h"
 #include "chatbubble.h"
@@ -27,12 +29,17 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow() override;
 
+protected:
+	void mousePressEvent(QMouseEvent* event) override;
+	void mouseMoveEvent(QMouseEvent* event) override;
+
 private:
     Ui::MainWindow *ui;
     QHotkey *hotkey;
     OllamaClient *client;
     ChatBubble *currentAnswerBubble;
     SettingsWindow *settingsWindow = nullptr;
+    QPoint dragPosition;
 
     void fixPosition(QWidget *scrollContent, QScrollArea *scrollArea);
     void popWindow(QLineEdit *inputBox);

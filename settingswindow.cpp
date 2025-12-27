@@ -56,9 +56,10 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
 
     auto *label = new QLabel("Model Name:", settingFrame);
     label->setSizePolicy(QSizePolicy::Maximum, QSizePolicy::Preferred);
-    label->setStyleSheet(
+    label->setStyleSheet(QString(
         "padding: 0px;"
-    );
+        "color: %1;"
+    ).arg(Theme::TextUser));
     settingLayout->addWidget(label, 0);
 
     modelInput = new QComboBox(settingFrame);

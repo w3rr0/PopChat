@@ -2,7 +2,6 @@
 #include "ollamaclient.h"
 
 #include <QApplication>
-#include <QLabel>
 #include <QSettings>
 
 int main(int argc, char *argv[])

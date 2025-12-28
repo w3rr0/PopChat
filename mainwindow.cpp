@@ -284,7 +284,7 @@ bool MainWindow::nativeEvent(const QByteArray& eventType, void* message, qintptr
         const int w = this->width();
         const int h = this->height();
 
-        // Check where the coursor is
+        // Check where the cursor is
         const bool left = pos.x() < borderWidth;
         const bool right = pos.x() >= w - borderWidth;
         const bool top = pos.y() < borderWidth;

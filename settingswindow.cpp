@@ -120,10 +120,8 @@ SettingsWindow::SettingsWindow(OllamaClient *client, QWidget *parent)
         modelInput->clear();
         modelInput->addItems(models);
 
-        auto currentModel = OllamaClient::getModelName();
-
-        if (currentModel.isEmpty() && !models.isEmpty()) {
-            const QString defaultModel = models.first();
+        if (const auto currentModel = OllamaClient::getModelName(); currentModel.isEmpty() && !models.isEmpty()) {
+            const QString &defaultModel = models.first();
 			modelInput->setCurrentText(defaultModel);
             this->saveSettings(defaultModel);
             emit modelChanged();

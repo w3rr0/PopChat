@@ -32,7 +32,7 @@ public:
 protected:
 	void mousePressEvent(QMouseEvent* event) override;
 	void mouseMoveEvent(QMouseEvent* event) override;
-    bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result);
+    bool nativeEvent(const QByteArray& eventType, void* message, qintptr* result) override;
 
 private:
     Ui::MainWindow *ui;
